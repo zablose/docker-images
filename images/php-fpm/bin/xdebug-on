@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+. /usr/local/bin/exit-if-root
+
+sudo phpenmod xdebug

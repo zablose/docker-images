@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+bin=/usr/local/bin
+
+. "${bin}/exit-if-root"
+. "${bin}/source-env-file"
+. "${bin}/functions.sh"
+
+web_root_dir=${ZDI_WEB_DIR}
+web_app_dir=${ZDI_WEB_APP}
+user_id=${ZDI_USER_ID}
+group_id=${ZDI_USER_GROUP_ID}
+
+show_info "Restoring permissions of web directory '${web_root_dir}'."
+
+sudo reas "${web_root_dir}" 750 640
+sudo chmod 750 "${web_root_dir}"
+sudo chown -R "${user_id}":"${group_id}" "${web_root_dir}"
+
+if [[ -f "${web_app_dir}/artisan" ]]
+then
+    reas "${web_app_dir}/storage" 770 660
+    reas "${web_app_dir}/bootstrap/cache" 770 660
+fi
+
+while IFS= read -r -d '' bin_dir
+do
+    echo "${bin_dir}"
+    chmod -R 750 "${bin_dir}"
+done <   <(find "${web_root_dir}" -type d -name 'bin' -print0)
+
+#
+# Last line
+#
+# Add SETGID set-group-ID bit to folders to force parent group for new files and folders.
+#
+find "${web_root_dir}" -type d -print0 | xargs -0 chmod g+s
+
+show_success 'Permissions restored!'

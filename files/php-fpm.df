@@ -1,0 +1,62 @@
+FROM debian:12.7
+
+ARG ARG_USER_GROUP_ID=1000
+ARG ARG_USER_GROUP_NAME=debian
+ARG ARG_USER_ID=1000
+ARG ARG_USER_NAME=debian
+ARG ARG_WEB_ROOT_DIR=/home/web
+ARG ARG_ADD_COMPOSER=true
+ARG ARG_ADD_LARAVEL=true
+
+ARG BIN=/usr/local/bin
+ARG SETUP=/tmp/setup
+ARG ARG_LOG=/var/log/zdi-image-build-php-fpm.log
+
+COPY ./setup/bin/* $BIN/
+COPY ./images/php-fpm/bin/* $BIN/
+COPY ./setup/common/* $SETUP/
+COPY ./images/php-fpm/setup/* $SETUP/
+
+RUN bash $SETUP/apt.sh
+RUN bash $SETUP/debian-deps.sh
+
+RUN echo 'deb https://packages.sury.org/php/ bookworm main' > /etc/apt/sources.list.d/php.list && \
+    curl -sS https://packages.sury.org/php/apt.gpg > /etc/apt/trusted.gpg.d/php.gpg && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        php8.3-fpm \
+    >> $ARG_LOG
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        php8.3-apcu \
+        php8.3-curl \
+        php8.3-gd \
+        php8.3-mbstring \
+        php8.3-mysql \
+        php8.3-sqlite3 \
+        php8.3-xdebug \
+        php8.3-xml \
+        php8.3-xsl \
+        php8.3-zip \
+    >> $ARG_LOG
+
+RUN bash $SETUP/php.sh
+
+RUN chmod 755 $BIN/* && \
+    bash $SETUP/timezone.sh && \
+    bash $SETUP/bash.sh && \
+    bash $SETUP/vim.sh && \
+    bash $SETUP/root.sh && \
+    bash $SETUP/user.sh && \
+    bash $SETUP/composer.sh && \
+    bash $SETUP/apt-cleanup.sh
+
+USER $ARG_USER_NAME
+
+WORKDIR $ARG_WEB_ROOT_DIR
+
+EXPOSE 9000
+
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+CMD ["wrapper.sh"]

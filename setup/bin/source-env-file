@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+file=$HOME/.env
+if [ ! -e "${file}" ]; then
+    echo "Environment file '${file}' does not exist.";
+    exit 1;
+fi
+
+# shellcheck source=./.example.env
+. "${file}"
