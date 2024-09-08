@@ -1,0 +1,24 @@
+FROM nginx:1.27
+
+ARG ARG_DOMAIN=localhost
+ARG ARG_PHP_FPM_HOST=php-fpm
+ARG ARG_WEB_ROOT_DIR=/home/web
+
+ARG ARG_LOG=/var/log/nginx-image-build.log
+
+RUN touch $ARG_LOG && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        apt-utils \
+        vim \
+        >> $ARG_LOG
+
+COPY ./images/nginx/setup/* /tmp/setup/
+
+RUN setup=/tmp/setup && \
+    bash $setup/nginx.sh && \
+    rm -rf \
+        $setup \
+    && \
+    apt-get clean \
+    >> $ARG_LOG \
