@@ -1,18 +1,36 @@
 #!/usr/bin/env bash
 
-if [[ "$1" ]]
-then
-    rightsDir=750
-    rightsFile=640
-    if [[ "$2" ]]
-    then
-        rightsDir=$2
-    fi
-    if [[ "$3" ]]
-    then
-        rightsFile=$3
-    fi
-    find $1 -type d -print0 | xargs -0 chmod ${rightsDir}
-    find $1 -type f -print0 | xargs -0 chmod ${rightsFile}
-    chmod ${rightsDir} $1
+usage() {
+    echo "Usage: $0 [<directory> [<dir_chmod_rights> [<file_chmod_rights>]]]"
+    echo
+    echo 'Apply chmod rights to a directory and its contents recursively.'
+    echo
+    echo 'Arguments:'
+    echo '<directory>              A directory to apply chmod rights. Must be provided.'
+    echo '<dir_chmod_rights>       Chmod rights to apply to directories. Default is 750.'
+    echo '<file_chmod_rights>      Chmod rights to apply to files. Default is 640.'
+    echo
+    echo 'Examples:'
+    echo "$0 /path/to/directory"
+    echo "$0 /path/to/directory 755"
+    echo "$0 /path/to/directory 755 664"
+}
+
+if [[ "$1" == '--help' || "$1" == '-h' ]]; then
+    usage
+    exit 0
+fi
+
+if [[ "$1" ]]; then
+    dir="$1"
+    rights_dir=${2:-750}
+    rights_file=${3:-640}
+
+    find "${dir}" -type d -print0 | xargs -0 chmod "${rights_dir}"
+    find "${dir}" -type f -print0 | xargs -0 chmod "${rights_file}"
+    chmod "${rights_dir}" "${dir}"
+else
+    echo 'Error: No directory supplied'
+    usage
+    exit 1;
 fi
