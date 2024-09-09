@@ -6,8 +6,8 @@ bin=/usr/local/bin
 . "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
-web_root_dir=${ZDI_WEB_DIR}
-web_app_dir=${ZDI_WEB_APP}
+web_root_dir=${ZDI_WEB_ROOT_DIR}
+web_app_dir=${ZDI_WEB_APP_DIR}
 user_id=${ZDI_USER_ID}
 group_id=${ZDI_USER_GROUP_ID}
 

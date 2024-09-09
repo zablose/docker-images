@@ -2,35 +2,38 @@
 
 set -e
 
-. "${BIN}/functions.sh"
+bin=/usr/local/bin
+env_bash='#!/usr/bin/env bash'
+
+. "${bin}/functions.sh"
 
 log=/var/log/usr-local-bin-php.log
 
 {
     show_info 'Setting up scripts in "/usr/local/bin" folder.'
 
-    tee "${BIN}/phpcs" <<EOF
-#!/usr/bin/env bash
+    tee "${bin}/phpcs" <<EOF
+${env_bash}
 
 php ./vendor/bin/phpcs "\$@"
 
 EOF
 
-    tee "${BIN}/phpunit" <<EOF
-#!/usr/bin/env bash
+    tee "${bin}/phpunit" <<EOF
+${env_bash}
 
 php ./vendor/bin/phpunit "\$@"
 
 EOF
 
-    tee "${BIN}/phpunit-with-xdebug" <<EOF
-#!/usr/bin/env bash
+    tee "${bin}/phpunit-with-xdebug" <<EOF
+${env_bash}
 
 php -d zend_extension=xdebug.so -d xdebug.mode=coverage ./vendor/bin/phpunit "\$@"
 
 EOF
 
-    reas "${BIN}" 755 755
+    reas "${bin}" 755 755
 
     show_success "Scripts setup complete. Log file '${log}'."
 

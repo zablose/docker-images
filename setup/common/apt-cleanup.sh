@@ -9,7 +9,7 @@ log=/var/log/zdi-apt-cleanup.log
 {
     show_info 'Do Apt cleanup.'
 
-    apt clean
+    apt-get clean
     rm -rf /var/lib/apt/lists
 
     show_success "Apt cleanup complete. Log file '${log}'."

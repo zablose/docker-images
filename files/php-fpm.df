@@ -49,10 +49,13 @@ RUN chmod 755 $BIN/* && \
     bash $SETUP/vim.sh && \
     bash $SETUP/root.sh && \
     bash $SETUP/user.sh && \
-    bash $SETUP/composer.sh && \
     bash $SETUP/apt-cleanup.sh
 
+COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper
+
 USER $ARG_USER_NAME
+
+RUN bash $SETUP/composer.sh
 
 WORKDIR $ARG_WEB_ROOT_DIR
 

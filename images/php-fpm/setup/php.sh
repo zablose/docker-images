@@ -2,7 +2,7 @@
 
 set -e
 
-bin=${BIN}
+bin=/usr/local/bin
 
 . "${bin}/functions.sh"
 

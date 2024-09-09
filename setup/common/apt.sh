@@ -7,7 +7,7 @@ set -e
 log=/var/log/zdi-apt.log
 
 {
-    echo 'Installing Apt dependencies.'
+    show_info 'Installing Apt dependencies.'
 
     apt-get update
     apt-get install -y --no-install-recommends \

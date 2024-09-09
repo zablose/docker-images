@@ -2,7 +2,7 @@
 
 set -e
 
-bin=${BIN}
+bin=/usr/local/bin
 
 . "${bin}/functions.sh"
 
@@ -30,9 +30,9 @@ log=/var/log/zdi-composer.log
     then
         mkdir "${home}/.composer"
         chmod 700 "${home}/.composer"
-        curl -sS https://getcomposer.org/installer | php -- --install-dir="${bin}" --filename=composer \
-            --version=2.5.7
-        chmod 755 "${composer}"
+        curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${bin}" --filename=composer \
+            --version=2.7.9
+        sudo chmod 755 "${composer}"
         chown -R "${user_name}:${group_name}" "${home}"
     fi
 

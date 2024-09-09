@@ -44,7 +44,8 @@ EOF
 
     chown -R "${user_id}":"${group_id}" "${dir_home}"
     reas "${dir_home}" 700 600
-    reas "${dir_home}"/bin 700 500
+    mkdir "${dir_home}/bin"
+    reas "${dir_home}/bin" 700 500
 
     show_success "User setup complete. Log file '${log}'."
 

@@ -1,6 +1,6 @@
 FROM nginx:1.27
 
-ARG ARG_DOMAIN=localhost
+ARG ARG_WEB_DOMAIN=localhost
 ARG ARG_PHP_FPM_HOST=php-fpm
 ARG ARG_WEB_ROOT_DIR=/home/web
 

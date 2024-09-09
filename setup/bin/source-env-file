@@ -2,9 +2,14 @@
 
 set -e
 
+bin=/usr/local/bin
+
+. "${bin}/functions.sh"
+
 file=$HOME/.env
+
 if [ ! -e "${file}" ]; then
-    echo "Environment file '${file}' does not exist.";
+    show_error "Environment file '${file}' does not exist.";
     exit 1;
 fi
 

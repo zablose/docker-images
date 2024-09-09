@@ -2,7 +2,7 @@
 
 set -e
 
-domain=${ARG_DOMAIN}
+domain=${ARG_WEB_DOMAIN}
 php_fpm_host=${ARG_PHP_FPM_HOST}
 web_root_dir=${ARG_WEB_ROOT_DIR}
 
