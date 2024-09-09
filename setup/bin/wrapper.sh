@@ -6,7 +6,8 @@ bin=/usr/local/bin
 . "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
-cmd=${ZDI_CMD_FULL_PATH}
+user_name=${ZDI_USER_NAME}
+wrapper=/home/${user_name}/wrapper
 log=/var/log/zdi-wrapper.log
 
 wrapper_start()
@@ -14,12 +15,12 @@ wrapper_start()
     {
         show_info 'Starting wrapper!'
 
-        show_info 'Running post setup.'
-        bash "${bin}/post-setup-prompt.sh"
-        bash "${bin}/post-setup.sh"
+        show_info 'Running first run setup.'
+        bash "${wrapper}/bash-prompt.sh"
+        bash "${wrapper}/setup.sh"
 
-        show_info "Starting '${cmd}'."
-        sudo "${cmd}" start
+        show_info 'Running start commands.'
+        bash "${wrapper}/start.sh"
 
         show_success 'Wrapper started!'
     } >> "${log}" 2>&1
@@ -30,8 +31,8 @@ wrapper_stop()
     {
         show_info 'Stopping wrapper!'
 
-        show_info "Stopping '${cmd}'."
-        sudo "${cmd}" stop
+        show_info "Running stop commands."
+        bash "${wrapper}/stop.sh"
 
         show_success 'Wrapper stopped!'
     } >> "${log}" 2>&1
