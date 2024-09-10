@@ -18,6 +18,7 @@ COPY ./images/php-fpm/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/php-fpm/setup/* $SETUP/
 
+RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
 RUN bash $SETUP/php-install.sh

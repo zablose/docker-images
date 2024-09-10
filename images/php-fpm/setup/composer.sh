@@ -34,7 +34,7 @@ log=/var/log/zdi-composer.log
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${bin}" --filename=composer \
             --version="${version}"
         sudo chmod 755 "${composer}"
-        chown -R "${user_name}:${group_name}" "${home}"
+        sudo chown -R "${user_name}:${group_name}" "${home}"
     fi
 
     if [[ "${add_laravel}" != "true" ]]
@@ -51,4 +51,4 @@ log=/var/log/zdi-composer.log
 
     show_success "Composer setup complete. Log file '${log}'."
 
-} 2>&1 | tee ${log}
+} 2>&1 | sudo tee ${log}
