@@ -11,6 +11,7 @@ add_laravel=${ARG_ADD_LARAVEL}
 
 user_name=${ARG_USER_NAME}
 group_name=${ARG_USER_GROUP_NAME}
+version=${ARG_VERSION_COMPOSER}
 
 home=/home/${user_name}
 composer=${bin}/composer
@@ -31,7 +32,7 @@ log=/var/log/zdi-composer.log
         mkdir "${home}/.composer"
         chmod 700 "${home}/.composer"
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${bin}" --filename=composer \
-            --version=2.7.9
+            --version="${version}"
         sudo chmod 755 "${composer}"
         chown -R "${user_name}:${group_name}" "${home}"
     fi
