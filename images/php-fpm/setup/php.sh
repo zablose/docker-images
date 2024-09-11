@@ -4,18 +4,49 @@ set -e
 
 bin=/usr/local/bin
 
+. "${bin}/exit-if-root"
 . "${bin}/functions.sh"
 
-dir_php=/usr/local/etc/php
-dir_conf=${dir_php}/conf.d
-dir_disabled=${dir_php}/disabled
+env=${ARG_ENV}
+version=${ARG_VERSION_PHP}
+timezone=${ARG_TIMEZONE}
+
+dir_php=/etc/php/${version}
 log=/var/log/zdi-php.log
+
+update()
+{
+    report=$(if [ "${env}" == 'dev' ]; then echo 'E_ALL'; else echo 'E_ALL & ~E_DEPRECATED & ~E_STRICT'; fi)
+    display=$(if [ "${env}" == 'dev' ]; then echo 'On'; else echo 'Off'; fi)
+
+    sudo sed -i -e "s/^error_reporting\s.*$/error_reporting = ${report}/" "$1"
+    sudo sed -i -e "s/^display_errors\s.*$/display_errors = ${display}/" "$1"
+    sudo sed -i -e "s/^display_startup_errors\s.*$/display_startup_errors = ${display}/" "$1"
+    sudo sed -i -e "s~^;date.timezone.*$~date.timezone = \"${timezone}\"~" "$1"
+}
+
+update_xdebug()
+{
+    xdebug=$(if [ "${env}" == 'dev' ]; then echo 'yes'; else echo 'no'; fi)
+
+    sudo tee -a "${dir_php}/mods-available/xdebug.ini" <<EOF
+
+xdebug.start_with_request=${xdebug}
+xdebug.mode=coverage,debug,develop
+xdebug.client_host=$(route | awk '/^default/ { print $2 }')
+
+EOF
+}
 
 {
     show_info 'Setting up PHP.'
 
+    update "${dir_php}/fpm/php.ini"
+    update "${dir_php}/cli/php.ini"
 
+    update_xdebug
+    xdebug-off
 
     show_success "PHP setup complete. Log file '${log}'."
 
-} 2>&1 | tee ${log}
+} 2>&1 | sudo tee ${log}

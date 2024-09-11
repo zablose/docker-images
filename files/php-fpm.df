@@ -1,5 +1,6 @@
 FROM debian:12.7
 
+ARG ARG_ENV=prod
 ARG ARG_USER_GROUP_ID=1000
 ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
@@ -9,6 +10,7 @@ ARG ARG_ADD_COMPOSER=true
 ARG ARG_ADD_LARAVEL=true
 ARG ARG_VERSION_PHP=8.3
 ARG ARG_VERSION_COMPOSER=2.7.9
+ARG ARG_TIMEZONE=Europe/London
 
 ARG BIN=/usr/local/bin
 ARG SETUP=/tmp/setup
@@ -23,7 +25,6 @@ RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
 RUN bash $SETUP/php-install.sh
 RUN bash $SETUP/php-install-extensions.sh
-RUN bash $SETUP/php.sh
 
 RUN chmod 755 $BIN/* && \
     bash $SETUP/timezone.sh && \
@@ -33,10 +34,11 @@ RUN chmod 755 $BIN/* && \
     bash $SETUP/user.sh && \
     bash $SETUP/apt-cleanup.sh
 
-COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper
+COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
 
 USER $ARG_USER_NAME
 
+RUN bash $SETUP/php.sh
 RUN bash $SETUP/composer.sh
 
 WORKDIR $ARG_WEB_ROOT_DIR

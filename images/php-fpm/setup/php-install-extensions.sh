@@ -7,7 +7,7 @@ bin=/usr/local/bin
 . "${bin}/functions.sh"
 
 version=${ARG_VERSION_PHP}
-log=/var/log/zdi-php-install.log
+log=/var/log/zdi-php-install-extensions.log
 
 {
     show_info 'Install PHP extensions.'
