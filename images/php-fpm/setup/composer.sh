@@ -35,7 +35,7 @@ log=/var/log/zdi-composer.log
         chmod 700 "${dir_home}/.composer"
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${user_bin}" --filename=composer \
             --version="${version}"
-        sudo chmod 755 "${composer}"
+        sudo chmod 700 "${composer}"
         sudo chown -R "${user_name}:${group_name}" "${dir_home}"
         tee -a "${bashrc}" <<EOF
 

@@ -16,9 +16,10 @@ ARG BIN=/usr/local/bin
 ARG SETUP=/tmp/setup
 
 COPY ./setup/bin/* $BIN/
-COPY ./images/php-fpm/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/php-fpm/setup/* $SETUP/
+COPY ./images/php-fpm/bin/* /home/$ARG_USER_NAME/bin/
+COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
@@ -33,8 +34,6 @@ RUN chmod 755 $BIN/* && \
     bash $SETUP/root.sh && \
     bash $SETUP/user.sh && \
     bash $SETUP/apt-cleanup.sh
-
-COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
 
 USER $ARG_USER_NAME
 
