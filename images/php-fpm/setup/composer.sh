@@ -13,9 +13,11 @@ user_name=${ARG_USER_NAME}
 group_name=${ARG_USER_GROUP_NAME}
 version=${ARG_VERSION_COMPOSER}
 
-home=/home/${user_name}
-composer=${bin}/composer
-laravel=${home}/.composer/vendor/bin/laravel
+dir_home=/home/${user_name}
+user_bin=${dir_home}/bin
+bashrc=${dir_home}/.bashrc
+composer=${user_bin}/composer
+laravel=${dir_home}/.composer/vendor/bin/laravel
 log=/var/log/zdi-composer.log
 
 {
@@ -29,12 +31,17 @@ log=/var/log/zdi-composer.log
 
     if [[ ! -f "${composer}" ]]
     then
-        mkdir "${home}/.composer"
-        chmod 700 "${home}/.composer"
-        curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${bin}" --filename=composer \
+        mkdir "${dir_home}/.composer"
+        chmod 700 "${dir_home}/.composer"
+        curl -sS https://getcomposer.org/installer | sudo php -- --install-dir="${user_bin}" --filename=composer \
             --version="${version}"
         sudo chmod 755 "${composer}"
-        sudo chown -R "${user_name}:${group_name}" "${home}"
+        sudo chown -R "${user_name}:${group_name}" "${dir_home}"
+        tee -a "${bashrc}" <<EOF
+
+PATH=\$PATH:${dir_home}/.composer/vendor/bin
+
+EOF
     fi
 
     if [[ "${add_laravel}" != "true" ]]
@@ -47,6 +54,12 @@ log=/var/log/zdi-composer.log
     then
         ${composer} global require laravel/installer
         chmod 700 "${laravel}"
+        tee -a "${dir_home}"/.bash_aliases <<EOF
+
+alias lara-db-migrate-and-seed='php artisan migrate && php artisan db:seed'
+alias lara-db-fresh-and-seed='php artisan migrate:fresh && php artisan db:seed'
+
+EOF
     fi
 
     show_success "Composer setup complete. Log file '${log}'."

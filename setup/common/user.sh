@@ -31,14 +31,6 @@ log=/var/log/zdi-user.log
     tee -a "${bashrc}" <<EOF
 
     PATH=\$PATH:${dir_home}/bin
-    PATH=\$PATH:${dir_home}/.composer/vendor/bin
-
-EOF
-
-    tee -a "${dir_home}"/.bash_aliases <<EOF
-
-    alias lara-db-migrate-and-seed='php artisan migrate && php artisan db:seed'
-    alias lara-db-fresh-and-seed='php artisan migrate:fresh && php artisan db:seed'
 
 EOF
 
