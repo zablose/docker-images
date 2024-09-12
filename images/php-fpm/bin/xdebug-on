@@ -7,7 +7,7 @@ bin=/usr/local/bin
 . "${bin}/exit-if-root"
 . "${bin}/functions.sh"
 
-version=${ZDI_VERSION_PHP}
+version=${ZDI_VERSION_PHP:-${ARG_VERSION_PHP}}
 xdebug_dir=/etc/php/${version}/mods-available/xdebug.ini
 
 show_info 'Enable Xdebug PHP extension.'
