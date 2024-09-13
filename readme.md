@@ -21,6 +21,13 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 | ZDI_VERSION_PHP      | arg,env | 8.3               |                                                             |
 | ZDI_VERSION_COMPOSER | arg     | 2.7.9             |                                                             |
 | ZDI_TIMEZONE         | arg,env | Europe/London     |                                                             |
+| ZDI_DB_NAME          | env     |                   |                                                             |
+| ZDI_DB_USERNAME      | env     |                   |                                                             |
+| ZDI_DB_PASSWORD      | env     |                   |                                                             |
+|                      |         |                   |                                                             |
+|                      |         |                   |                                                             |
+|                      |         |                   |                                                             |
+|                      |         |                   |                                                             |
 |                      |         |                   |                                                             |
 
 ## Images

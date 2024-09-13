@@ -7,8 +7,10 @@ bin=/usr/local/bin
 . "${bin}/functions.sh"
 
 user_name=${ZDI_USER_NAME}
-wrapper=/home/${user_name}/wrapper
-log=/var/log/zdi-wrapper.log
+
+home=/home/${user_name}
+wrapper=${home}/wrapper
+log=${home}/zdi-wrapper.log
 
 wrapper_start()
 {

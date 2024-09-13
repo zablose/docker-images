@@ -29,7 +29,8 @@ log=/var/log/zdi-deps.log
         net-tools \
         sudo \
         unzip \
-        vim
+        vim \
+        wget
 
     show_success "Dependencies installed. Log file '${log}'."
 

@@ -12,6 +12,7 @@ bin=/usr/local/bin
 user_name=${ZDI_USER_NAME}
 
 home=/home/${user_name}
+user_bin=${home}/bin
 file=${home}/post-setup.sh
 lock=${home}/.setup.lock
 
@@ -26,7 +27,7 @@ else
     show_warning "Custom post setup script '${file}' not found. Skipping."
 fi
 
-r-web
+bash "${user_bin}/r-web"
 
 true > "${lock}"
 chmod 400 "${lock}"
