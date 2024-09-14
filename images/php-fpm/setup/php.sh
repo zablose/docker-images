@@ -10,9 +10,13 @@ bin=/usr/local/bin
 env=${ARG_ENV}
 version=${ARG_VERSION_PHP}
 timezone=${ARG_TIMEZONE}
-user_bin=/home/${ARG_USER_NAME}/bin
+user=${ARG_USER_NAME}
+group=${ARG_USER_GROUP_NAME}
 
+user_bin=/home/${user}/bin
 dir_php=/etc/php/${version}
+fpm_conf=${dir_php}/fpm/php-fpm.conf
+www_conf=${dir_php}/fpm/pool.d/www.conf
 log=/var/log/zdi-php.log
 
 update()
@@ -26,6 +30,21 @@ update()
 
     # '~' is used as the delimiter, because timezone has '/' inside.
     sudo sed -i -e "s~^;date.timezone\s.*$~date.timezone = \"${timezone}\"~" "$1"
+}
+
+update_fpm()
+{
+    log_level=$(if [ "${env}" == 'dev' ]; then echo 'debug'; else echo 'error'; fi)
+
+    sudo sed -i -e "s~^error_log\s.*$~error_log = /proc/self/fd/2~" "${fpm_conf}"
+    sudo sed -i -e "s~^;log_level\s.*$~log_level = ${log_level}~" "${fpm_conf}"
+
+    sudo sed -i -e "s/^user\s.*$/user = ${user}/" "${www_conf}"
+    sudo sed -i -e "s/^group\s.*$/group = ${group}/" "${www_conf}"
+    sudo sed -i -e "s/^listen\.owner\s.*$/listen\.owner = ${user}/" "${www_conf}"
+    sudo sed -i -e "s/^listen\.group\s.*$/listen\.group = ${group}/" "${www_conf}"
+    sudo sed -i -e "s/^listen\s.*$/listen = 9000/" "${www_conf}"
+    sudo sed -i -e "s/^;catch_workers_output\s.*$/catch_workers_output = yes/" "${www_conf}"
 }
 
 update_xdebug()
@@ -46,6 +65,8 @@ EOF
 
     update "${dir_php}/fpm/php.ini"
     update "${dir_php}/cli/php.ini"
+
+    update_fpm
 
     update_xdebug
     bash "${user_bin}/xdebug-off"
