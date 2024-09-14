@@ -34,7 +34,7 @@ update()
 
 update_fpm()
 {
-    log_level=$(if [ "${env}" == 'dev' ]; then echo 'debug'; else echo 'error'; fi)
+    log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
 
     sudo sed -i -e "s~^error_log\s.*$~error_log = /proc/self/fd/2~" "${fpm_conf}"
     sudo sed -i -e "s~^;log_level\s.*$~log_level = ${log_level}~" "${fpm_conf}"

@@ -27,7 +27,7 @@ log=/var/log/zdi-post-setup-php-fpm.log
 
     sudo bash -c "wget ${env_conf} -O ->> ${dir_php}/fpm/pool.d/www.conf"
 
-    r-web "${ZDI_WEB_ROOT_DIR}"
+    r-web
 
     show_success "Php-fpm post setup complete. Log file '${log}'."
 
