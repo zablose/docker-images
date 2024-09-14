@@ -1,24 +1,39 @@
 FROM nginx:1.27
 
+ARG ARG_ENV=prod
+ARG ARG_USER_GROUP_ID=1000
+ARG ARG_USER_GROUP_NAME=debian
+ARG ARG_USER_ID=1000
+ARG ARG_USER_NAME=debian
 ARG ARG_WEB_DOMAIN=localhost
 ARG ARG_PHP_FPM_HOST=php-fpm
 ARG ARG_WEB_ROOT_DIR=/home/web
+ARG ARG_TIMEZONE=Europe/London
 
-ARG ARG_LOG=/var/log/nginx-image-build.log
+ARG BIN=/usr/local/bin
+ARG SETUP=/tmp/setup
 
-RUN touch $ARG_LOG && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-        apt-utils \
-        vim \
-        >> $ARG_LOG
+COPY ./setup/bin/* $BIN/
+COPY ./setup/common/* $SETUP/
+COPY ./images/nginx/setup/* $SETUP/
+COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
 
-COPY ./images/nginx/setup/* /tmp/setup/
+RUN chmod -R 777 $SETUP
+RUN bash $SETUP/apt.sh
+RUN bash $SETUP/debian-deps.sh
 
-RUN setup=/tmp/setup && \
-    bash $setup/nginx.sh && \
-    rm -rf \
-        $setup \
-    && \
-    apt-get clean \
-    >> $ARG_LOG \
+RUN chmod 755 $BIN/* && \
+    bash $SETUP/timezone.sh && \
+    bash $SETUP/bash.sh && \
+    bash $SETUP/vim.sh && \
+    bash $SETUP/root.sh && \
+    bash $SETUP/user.sh && \
+    bash $SETUP/nginx.sh && \
+    bash $SETUP/apt-cleanup.sh
+
+USER $ARG_USER_NAME
+
+WORKDIR $ARG_WEB_ROOT_DIR
+
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+CMD ["wrapper.sh"]

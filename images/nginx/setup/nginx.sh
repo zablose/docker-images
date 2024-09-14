@@ -1,17 +1,36 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -e
 
+bin=/usr/local/bin
+
+#. "${bin}/exit-if-root"
+. "${bin}/functions.sh"
+
 domain=${ARG_WEB_DOMAIN}
+env=${ARG_ENV}
 php_fpm_host=${ARG_PHP_FPM_HOST}
+user=${ARG_USER_NAME}
+group=${ARG_USER_GROUP_NAME}
 web_root_dir=${ARG_WEB_ROOT_DIR}
 
-certs=/etc/nginx/certs
+nginx=/etc/nginx
+nginx_conf=${nginx}/nginx.conf
+certs=${nginx}/certs
+conf=${nginx}/conf.d
+snippets=${nginx}/snippets
 crt=${certs}/${domain}.crt
 key=${certs}/${domain}.key
-snippets=/etc/nginx/snippets
 
 mkdir -p ${certs} ${snippets}
+
+update_nginx()
+{
+    log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
+
+    sudo sed -i -e "s/^user\s.*$/user ${user} ${group};/" "${nginx_conf}"
+    sudo sed -i -e "s~^error_log\s.*$~error_log /proc/self/fd/2 ${log_level};~" "${nginx_conf}"
+}
 
 tee ${certs}/certs.conf <<EOF
 [req]
@@ -31,7 +50,7 @@ openssl req -x509 -config ${certs}/certs.conf -nodes -days 365 -newkey rsa:2048 
 ln -srf "${crt}" "/usr/local/share/ca-certificates/${domain}.crt"
 update-ca-certificates
 
-tee /etc/nginx/conf.d/default.conf <<EOF
+tee ${conf}/default.conf <<EOF
 
 server {
 	listen 80 default_server;
@@ -42,7 +61,7 @@ server {
 
 EOF
 
-tee /etc/nginx/conf.d/default-ssl.conf <<EOF
+tee ${conf}/default-ssl.conf <<EOF
 
 server {
     listen 443 ssl default_server;
@@ -133,3 +152,5 @@ gzip_types
     text/plain;
 
 EOF
+
+update_nginx
