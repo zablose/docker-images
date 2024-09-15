@@ -13,6 +13,8 @@ ARG ARG_TIMEZONE=Europe/London
 ARG BIN=/usr/local/bin
 ARG SETUP=/tmp/setup
 
+ENV ZDI_CMD_FULL_PATH=/etc/init.d/nginx
+
 COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/nginx/setup/* $SETUP/

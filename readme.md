@@ -7,7 +7,6 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 | Name                 | ARG,ENV | Default           | Description                                                 |
 |----------------------|---------|-------------------|-------------------------------------------------------------|
 | ZDI_ENV              | arg,env | prod              | Set to 'dev' to display errors in PHP.                      |
-| ZDI_CMD_FULL_PATH    | env     |                   | Full path to the program, like: '/etc/init.d/php8.3-fpm'.   |
 | ZDI_USER_GROUP_ID    | arg,env | 1000              |                                                             |
 | ZDI_USER_ID          | arg,env | 1000              |                                                             |
 | ZDI_USER_NAME        | arg     | debian            |                                                             |
