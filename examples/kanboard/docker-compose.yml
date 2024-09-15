@@ -16,12 +16,14 @@ services:
                 - ARG_WEB_ROOT_DIR=${ZDI_WEB_ROOT_DIR}
         container_name: kanboard-nginx
         env_file:
-            -   path: ./examples/kanboard/.nginx.env
+            -   path: ./.env
+        environment:
+            ZDI_CONTAINER_NAME: kanboard-nginx
         ports:
             - '80:80'
             - '443:443'
         volumes:
-            - ./examples/kanboard/.nginx.env:/home/${ZDI_USER_NAME}/.env
+            - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - kanboard_data:${ZDI_WEB_ROOT_DIR}/data/
             - kanboard_plugins:${ZDI_WEB_ROOT_DIR}/plugins/
@@ -48,8 +50,10 @@ services:
                 - ARG_WEB_ROOT_DIR=${ZDI_WEB_ROOT_DIR}
         container_name: kanboard-php-fpm
         env_file:
-            -   path: ./examples/kanboard/.php-fpm.env
+            -   path: ./.env
         environment:
+            ZDI_CONTAINER_NAME: kanboard-php-fpm
+            ZDI_USER_NAME: ${ZDI_USER_NAME}
             DATA_DIR: ${ZDI_WEB_ROOT_DIR}/data
             PLUGINS_DIR: ${ZDI_WEB_ROOT_DIR}/plugins
             DB_HOSTNAME: kanboard-mariadb
@@ -58,12 +62,13 @@ services:
             DB_USERNAME: ${ZDI_DB_USERNAME}
             DB_PASSWORD: ${ZDI_DB_PASSWORD}
         volumes:
-            - ./examples/kanboard/.php-fpm.env:/home/${ZDI_USER_NAME}/.env
+            - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - kanboard_data:${ZDI_WEB_ROOT_DIR}/data/
             - kanboard_plugins:${ZDI_WEB_ROOT_DIR}/plugins/
-            - ./post-setup.kanboard.example.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./examples/kanboard/post-setup.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./examples/kanboard/env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
         logging:
             driver: syslog
             options:
@@ -77,7 +82,7 @@ services:
         image: mariadb:11.5.2
         container_name: kanboard-mariadb
         env_file:
-            -   path: ./examples/kanboard/.php-fpm.env
+            -   path: ./.env
         environment:
             MYSQL_ROOT_PASSWORD: ${ZDI_DB_PASSWORD}
             MYSQL_DATABASE: ${ZDI_DB_NAME}

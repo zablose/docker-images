@@ -28,7 +28,8 @@ update_nginx()
 {
     log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
 
-    sudo sed -i -e "s/^user\s.*$/user ${user} ${group};/" "${nginx_conf}"
+    #sudo sed -i -e "s/^user\s.*$/user ${user} ${group};/" "${nginx_conf}"
+    sudo sed -i -e "s/^user\s.*$/user www-data www-data;/" "${nginx_conf}"
     sudo sed -i -e "s~^error_log\s.*$~error_log /proc/self/fd/2 ${log_level};~" "${nginx_conf}"
 }
 

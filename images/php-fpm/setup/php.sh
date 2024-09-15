@@ -39,21 +39,19 @@ update_fpm()
     sudo sed -i -e "s~^error_log\s.*$~error_log = /proc/self/fd/2~" "${fpm_conf}"
     sudo sed -i -e "s~^;log_level\s.*$~log_level = ${log_level}~" "${fpm_conf}"
 
-    sudo sed -i -e "s/^user\s.*$/user = ${user}/" "${www_conf}"
-    sudo sed -i -e "s/^group\s.*$/group = ${group}/" "${www_conf}"
-    sudo sed -i -e "s/^listen\.owner\s.*$/listen\.owner = ${user}/" "${www_conf}"
-    sudo sed -i -e "s/^listen\.group\s.*$/listen\.group = ${group}/" "${www_conf}"
+    #sudo sed -i -e "s/^user\s.*$/user = ${user}/" "${www_conf}"
+    #sudo sed -i -e "s/^group\s.*$/group = ${group}/" "${www_conf}"
+    #sudo sed -i -e "s/^listen\.owner\s.*$/listen\.owner = ${user}/" "${www_conf}"
+    #sudo sed -i -e "s/^listen\.group\s.*$/listen\.group = ${group}/" "${www_conf}"
     sudo sed -i -e "s/^listen\s.*$/listen = 9000/" "${www_conf}"
     sudo sed -i -e "s/^;catch_workers_output\s.*$/catch_workers_output = yes/" "${www_conf}"
 }
 
 update_xdebug()
 {
-    xdebug=$(if [ "${env}" == 'dev' ]; then echo 'yes'; else echo 'no'; fi)
-
     sudo tee -a "${dir_php}/mods-available/xdebug.ini" <<EOF
 
-xdebug.start_with_request=${xdebug}
+xdebug.start_with_request=no
 xdebug.mode=coverage,debug,develop
 xdebug.client_host=$(route | awk '/^default/ { print $2 }')
 

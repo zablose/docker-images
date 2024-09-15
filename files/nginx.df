@@ -20,6 +20,7 @@ COPY ./setup/common/* $SETUP/
 COPY ./images/nginx/setup/* $SETUP/
 COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
 
+RUN mkdir -p /home/$ARG_USER_NAME/bin
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh

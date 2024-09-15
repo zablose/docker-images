@@ -10,24 +10,26 @@ bin=/usr/local/bin
 . "${bin}/functions.sh"
 
 web_root_dir=${ZDI_WEB_ROOT_DIR}
-version=${ARG_VERSION_PHP}
+user=${ZDI_USER_NAME}
 
-dir_php=/etc/php/${version}
+user_bin=/home/${user}/bin
 file=https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.39.tar.gz
-env_conf=https://github.com/kanboard/kanboard/blob/main/docker/etc/php83/php-fpm.d/env.conf
 log=/var/log/zdi-post-setup-php-fpm.log
 
 {
     show_info 'Php-fpm post setup.'
+
+    bash "${user_bin}/r-web"
 
     cd ~
     wget ${file} --output-document=kanboard.tgz && \
     tar xzf kanboard.tgz -C "${web_root_dir}" --strip-components=1 && \
     rm kanboard.tgz
 
-    sudo bash -c "wget ${env_conf} -O ->> ${dir_php}/fpm/pool.d/www.conf"
+    bash "${user_bin}/r-web"
 
-    r-web
+    reas "${web_root_dir}/data" 770 660
+    reas "${web_root_dir}/plugins" 770 660
 
     show_success "Php-fpm post setup complete. Log file '${log}'."
 
