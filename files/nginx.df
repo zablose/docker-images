@@ -6,21 +6,24 @@ ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
 ARG ARG_USER_NAME=debian
 ARG ARG_WEB_DOMAIN=localhost
-ARG ARG_PHP_FPM_HOST=php-fpm
 ARG ARG_WEB_ROOT_DIR=/home/web
 ARG ARG_TIMEZONE=Europe/London
 
 ARG BIN=/usr/local/bin
+ARG CONF=/etc/nginx/conf.d
+ARG HOME=/home/$ARG_USER_NAME
 ARG SETUP=/tmp/setup
+ARG SNIPPETS=/etc/nginx/snippets
 
 ENV ZDI_CMD_FULL_PATH=/etc/init.d/nginx
 
 COPY ./setup/bin/* $BIN/
+COPY ./images/nginx/conf/default* $CONF/
+COPY ./images/nginx/conf/main.conf $SNIPPETS/
 COPY ./setup/common/* $SETUP/
-COPY ./images/nginx/setup/* $SETUP/
-COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
+COPY ./images/nginx/user-bin/* $HOME/bin/
+COPY ./setup/wrapper/* $HOME/wrapper/
 
-RUN mkdir -p /home/$ARG_USER_NAME/bin
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
@@ -31,7 +34,6 @@ RUN chmod 755 $BIN/* && \
     bash $SETUP/vim.sh && \
     bash $SETUP/root.sh && \
     bash $SETUP/user.sh && \
-    bash $SETUP/nginx.sh && \
     bash $SETUP/apt-cleanup.sh
 
 USER $ARG_USER_NAME

@@ -7,7 +7,6 @@ services:
             dockerfile: files/nginx.df
             args:
                 - ARG_ENV=${ZDI_ENV}
-                - ARG_PHP_FPM_HOST=kanboard-php-fpm
                 - ARG_USER_GROUP_ID=${ZDI_USER_GROUP_ID}
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
@@ -19,6 +18,7 @@ services:
             -   path: ./.env
         environment:
             ZDI_CONTAINER_NAME: kanboard-nginx
+            ZDI_PHP_FPM_HOST: kanboard-php-fpm
         ports:
             - '80:80'
             - '443:443'
@@ -27,6 +27,7 @@ services:
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
             - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
+            - ./post-setup.nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
             options:
@@ -67,7 +68,7 @@ services:
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
             - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
-            - ./post-setup.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./post-setup.php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
             - ./env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
         logging:
             driver: syslog
