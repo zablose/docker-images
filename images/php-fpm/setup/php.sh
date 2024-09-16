@@ -11,7 +11,6 @@ env=${ARG_ENV}
 version=${ARG_VERSION_PHP}
 timezone=${ARG_TIMEZONE}
 user=${ARG_USER_NAME}
-group=${ARG_USER_GROUP_NAME}
 
 user_bin=/home/${user}/bin
 dir_php=/etc/php/${version}
@@ -39,10 +38,6 @@ update_fpm()
     sudo sed -i -e "s~^error_log\s.*$~error_log = /proc/self/fd/2~" "${fpm_conf}"
     sudo sed -i -e "s~^;log_level\s.*$~log_level = ${log_level}~" "${fpm_conf}"
 
-    #sudo sed -i -e "s/^user\s.*$/user = ${user}/" "${www_conf}"
-    #sudo sed -i -e "s/^group\s.*$/group = ${group}/" "${www_conf}"
-    #sudo sed -i -e "s/^listen\.owner\s.*$/listen\.owner = ${user}/" "${www_conf}"
-    #sudo sed -i -e "s/^listen\.group\s.*$/listen\.group = ${group}/" "${www_conf}"
     sudo sed -i -e "s/^listen\s.*$/listen = 9000/" "${www_conf}"
     sudo sed -i -e "s/^;catch_workers_output\s.*$/catch_workers_output = yes/" "${www_conf}"
 }

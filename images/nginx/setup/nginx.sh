@@ -4,7 +4,6 @@ set -e
 
 bin=/usr/local/bin
 
-#. "${bin}/exit-if-root"
 . "${bin}/functions.sh"
 
 domain=${ARG_WEB_DOMAIN}
