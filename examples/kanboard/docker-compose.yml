@@ -7,7 +7,7 @@ services:
             dockerfile: files/nginx.df
             args:
                 - ARG_ENV=${ZDI_ENV}
-                - ARG_PHP_FPM_HOST=${ZDI_PHP_FPM_HOST}
+                - ARG_PHP_FPM_HOST=kanboard-php-fpm
                 - ARG_USER_GROUP_ID=${ZDI_USER_GROUP_ID}
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
