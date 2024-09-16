@@ -10,8 +10,6 @@ bin=/usr/local/bin
 domain=${ARG_WEB_DOMAIN}
 env=${ARG_ENV}
 php_fpm_host=${ARG_PHP_FPM_HOST}
-user=${ARG_USER_NAME}
-group=${ARG_USER_GROUP_NAME}
 web_root_dir=${ARG_WEB_ROOT_DIR}
 
 nginx=/etc/nginx
@@ -28,7 +26,6 @@ update_nginx()
 {
     log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
 
-    #sudo sed -i -e "s/^user\s.*$/user ${user} ${group};/" "${nginx_conf}"
     sudo sed -i -e "s/^user\s.*$/user www-data www-data;/" "${nginx_conf}"
     sudo sed -i -e "s~^error_log\s.*$~error_log /proc/self/fd/2 ${log_level};~" "${nginx_conf}"
 }
@@ -57,7 +54,9 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 
-    include snippets/main.conf;
+    location / {
+        return 301 https://\$host\$request_uri;
+    }
 }
 
 EOF
