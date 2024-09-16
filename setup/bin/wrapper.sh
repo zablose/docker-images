@@ -47,7 +47,7 @@ wrapper_start
 
 echo 'Waiting for termination signal to stop container gracefully.' >> "${log}" 2>&1
 
-trap 'wrapper_stop; sleep 1; exit 0' SIGTERM
+trap 'wrapper_stop; sleep 1; exit 0' SIGTERM SIGQUIT
 while kill -0 "$$" > /dev/null 2>&1; do
     wait
 done
