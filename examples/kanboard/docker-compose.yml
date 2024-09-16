@@ -3,7 +3,7 @@ services:
     kanboard-nginx:
         image: zablose/kanboard-nginx:1.27
         build:
-            context: ./
+            context: ./../../
             dockerfile: files/nginx.df
             args:
                 - ARG_ENV=${ZDI_ENV}
@@ -25,8 +25,8 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
-            - kanboard_data:${ZDI_WEB_ROOT_DIR}/data/
-            - kanboard_plugins:${ZDI_WEB_ROOT_DIR}/plugins/
+            - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
+            - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
         logging:
             driver: syslog
             options:
@@ -39,7 +39,7 @@ services:
     kanboard-php-fpm:
         image: zablose/kanboard-php-fpm:${ZDI_VERSION_PHP}
         build:
-            context: ./
+            context: ./../../
             dockerfile: files/php-fpm.df
             args:
                 - ARG_ENV=${ZDI_ENV}
@@ -65,10 +65,10 @@ services:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
-            - kanboard_data:${ZDI_WEB_ROOT_DIR}/data/
-            - kanboard_plugins:${ZDI_WEB_ROOT_DIR}/plugins/
-            - ./examples/kanboard/post-setup.sh:/home/${ZDI_USER_NAME}/post-setup.sh
-            - ./examples/kanboard/env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
+            - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
+            - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
+            - ./post-setup.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
         logging:
             driver: syslog
             options:
@@ -94,15 +94,15 @@ services:
                 syslog-address: 'tcp://127.0.0.1:514'
                 tag: 'docker/kanboard-mariadb'
         volumes:
-            - kanboard_db:/var/lib/mysql/
-            - ./db/mariadb/init/:/docker-entrypoint-initdb.d/
+            - ./db/data/:/var/lib/mysql/
+            - ./db/init/:/docker-entrypoint-initdb.d/
         depends_on:
             - kanboard-rsyslog
 
     kanboard-rsyslog:
         image: zablose/rsyslog:3.19.1
         build:
-            context: ./
+            context: ./../../
             dockerfile: files/rsyslog.df
         container_name: kanboard-rsyslog
         ports:
@@ -111,7 +111,4 @@ services:
             - ./logs/:/var/log/
 
 volumes:
-    kanboard_data:
-    kanboard_plugins:
     kanboard_web:
-    kanboard_db:
