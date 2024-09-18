@@ -4,9 +4,9 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 
 ## Environment variables
 
-> Arg - Variable is used as `ARG` during image build;
-> Env - Variable is used as `ENV` inside container;
-> Dc - Variable is set in docker compose file.
+* Arg - Variable is used as `ARG` during image build;
+* Env - Variable is used as `ENV` inside container;
+* Dc - Variable is set in docker compose file.
 
 | Name                 | Arg,Env,Dc | Default           | Description                                                 |
 |----------------------|------------|-------------------|-------------------------------------------------------------|
@@ -32,6 +32,7 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 
 ## Images
 
+* [Mariadb](./readme/mariadb.md)
 * [Nginx](./readme/nginx.md)
 * [Php-fpm](./readme/php-fpm.md)
 * [Rsyslog](./readme/rsyslog.md)

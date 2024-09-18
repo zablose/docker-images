@@ -10,6 +10,7 @@ user_id=${ARG_USER_ID}
 user_name=${ARG_USER_NAME}
 group_id=${ARG_USER_GROUP_ID}
 group_name=${ARG_USER_GROUP_NAME}
+cmd_user=${ARG_CMD_USER}
 
 dir_home=/home/${user_name}
 bashrc=${dir_home}/.bashrc
@@ -20,7 +21,7 @@ log=/var/log/zdi-user.log
 
     groupadd -r -g "${group_id}" "${group_name}"
     useradd -s /bin/bash -u "${user_id}" -g "${group_name}" "${user_name}"
-    adduser www-data "${group_name}"
+    adduser "${cmd_user}" "${group_name}"
     echo "${user_name}:$(< /dev/urandom tr -dc '_A-Za-z0-9#!%' | head -c32)" | chpasswd
 
     file=/etc/sudoers.d/${user_name}

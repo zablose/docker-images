@@ -1,13 +1,14 @@
 FROM nginx:1.27
 
 ARG ARG_ENV=prod
+ARG ARG_TIMEZONE=Europe/London
 ARG ARG_USER_GROUP_ID=1000
 ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
 ARG ARG_USER_NAME=debian
 ARG ARG_WEB_DOMAIN=localhost
 ARG ARG_WEB_ROOT_DIR=/home/web
-ARG ARG_TIMEZONE=Europe/London
+ARG ARG_CMD_USER=www-data
 
 ARG BIN=/usr/local/bin
 ARG CONF=/etc/nginx/conf.d

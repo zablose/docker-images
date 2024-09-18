@@ -1,34 +1,29 @@
 FROM debian:12.7
 
-ARG ARG_ADD_COMPOSER=true
-ARG ARG_ADD_LARAVEL=true
 ARG ARG_ENV=prod
 ARG ARG_TIMEZONE=Europe/London
 ARG ARG_USER_GROUP_ID=1000
 ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
 ARG ARG_USER_NAME=debian
-ARG ARG_VERSION_COMPOSER=2.7.9
-ARG ARG_VERSION_PHP=8.3
-ARG ARG_WEB_ROOT_DIR=/home/web
-ARG ARG_CMD_USER=www-data
+ARG ARG_CMD_USER=mysql
 
 ARG BIN=/usr/local/bin
+ARG HOME=/home/$ARG_USER_NAME
 ARG SETUP=/tmp/setup
 
-ENV ZDI_CMD_FULL_PATH=/etc/init.d/php${ARG_VERSION_PHP}-fpm
+ENV ZDI_CMD_FULL_PATH=/etc/init.d/mariadb
 
 COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
-COPY ./images/php-fpm/setup/* $SETUP/
-COPY ./images/php-fpm/bin/* /home/$ARG_USER_NAME/bin/
-COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
+COPY ./images/mariadb/setup/* $SETUP/
+COPY ./images/mariadb/user-bin/* $HOME/bin/
+COPY ./setup/wrapper/* $HOME/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
-RUN bash $SETUP/php-install.sh
-RUN bash $SETUP/php-install-extensions.sh
+RUN bash $SETUP/mariadb-install.sh
 
 RUN chmod 755 $BIN/* && \
     bash $SETUP/timezone.sh && \
@@ -40,12 +35,9 @@ RUN chmod 755 $BIN/* && \
 
 USER $ARG_USER_NAME
 
-RUN bash $SETUP/php.sh
-RUN bash $SETUP/composer.sh
+WORKDIR /var/lib/mysql
 
-WORKDIR $ARG_WEB_ROOT_DIR
-
-EXPOSE 9000
+EXPOSE 3306
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["wrapper.sh"]

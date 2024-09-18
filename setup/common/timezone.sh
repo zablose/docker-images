@@ -2,7 +2,9 @@
 
 set -e
 
-. "${BIN}/functions.sh"
+bin=/usr/local/bin
+
+. "${bin}/functions.sh"
 
 timezone=${ARG_TIMEZONE}
 log=/var/log/zdi-timezone.log
