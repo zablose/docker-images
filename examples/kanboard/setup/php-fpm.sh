@@ -40,7 +40,6 @@ log=/var/log/zdi-post-setup-php-fpm.log
 
 define('DEBUG', true);
 define('LOG_DRIVER', 'file');
-define('LOG_FILE', '/proc/self/fd/2');
 
 define('DB_DRIVER', 'mysql');
 define('DB_USERNAME', '${db_user}');
