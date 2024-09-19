@@ -71,7 +71,6 @@ services:
             - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
             - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
             - ./setup/php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
-            - ./env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
         logging:
             driver: syslog
             options:

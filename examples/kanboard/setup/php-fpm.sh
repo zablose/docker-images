@@ -31,6 +31,21 @@ log=/var/log/zdi-post-setup-php-fpm.log
     reas "${web_root_dir}/data" 770 660
     reas "${web_root_dir}/plugins" 770 660
 
+    cd "${web_root_dir}"
+    tee ./config.php <<EOF
+<?php
+
+define('DEBUG', true);
+define('LOG_DRIVER', 'stderr');
+
+define('DB_DRIVER', '${DB_DRIVER}');
+define('DB_USERNAME', '${DB_USERNAME}');
+define('DB_PASSWORD', '${DB_PASSWORD}');
+define('DB_HOSTNAME', '${DB_HOSTNAME}');
+define('DB_NAME', '${DB_NAME}');
+
+EOF
+
     show_success "Php-fpm post setup complete. Log file '${log}'."
 
 } 2>&1 | sudo tee ${log}

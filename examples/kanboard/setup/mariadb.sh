@@ -11,8 +11,8 @@ bin=/usr/local/bin
 
 user=${ZDI_USER_NAME}
 db_name=${ZDI_DB_NAME}
-db_user=${ZDI_DB_PASSWORD}
-db_password=${ZDI_DB_USERNAME}
+db_user=${ZDI_DB_USERNAME}
+db_password=${ZDI_DB_PASSWORD}
 
 user_bin=/home/${user}/bin
 log=/var/log/zdi-post-setup-mariadb.log
