@@ -28,7 +28,7 @@ services:
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
             - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
-            - ./post-setup.nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
             options:
@@ -70,7 +70,7 @@ services:
             - kanboard_web:${ZDI_WEB_ROOT_DIR}/
             - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
             - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
-            - ./post-setup.php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./setup/php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
             - ./env.conf:/etc/php/${ZDI_VERSION_PHP}/fpm/pool.d/env.conf
         logging:
             driver: syslog
@@ -111,7 +111,7 @@ services:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_db:/var/lib/mysql/
             - ./db/init/:/docker-entrypoint-initdb.d/
-            - ./post-setup.mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+            - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - kanboard-rsyslog
 
