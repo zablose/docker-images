@@ -90,10 +90,6 @@ services:
             -   path: ./.env
         environment:
             ZDI_CONTAINER_NAME: kanboard-mariadb
-            MYSQL_ROOT_PASSWORD: ${ZDI_DB_PASSWORD}
-            MYSQL_DATABASE: ${ZDI_DB_NAME}
-            MYSQL_USER: ${ZDI_DB_USERNAME}
-            MYSQL_PASSWORD: ${ZDI_DB_PASSWORD}
         logging:
             driver: syslog
             options:

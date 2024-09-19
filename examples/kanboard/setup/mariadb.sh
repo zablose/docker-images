@@ -6,7 +6,6 @@ bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
-. "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
 user=${ZDI_USER_NAME}
