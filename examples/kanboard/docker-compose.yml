@@ -56,14 +56,7 @@ services:
             -   path: ./.env
         environment:
             ZDI_CONTAINER_NAME: kanboard-php-fpm
-            ZDI_USER_NAME: ${ZDI_USER_NAME}
-            DATA_DIR: ${ZDI_WEB_ROOT_DIR}/data
-            PLUGINS_DIR: ${ZDI_WEB_ROOT_DIR}/plugins
-            DB_HOSTNAME: kanboard-mariadb
-            DB_DRIVER: mysql
-            DB_NAME: ${ZDI_DB_NAME}
-            DB_USERNAME: ${ZDI_DB_USERNAME}
-            DB_PASSWORD: ${ZDI_DB_PASSWORD}
+            ZDI_DB_HOSTNAME: kanboard-mariadb
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
@@ -109,7 +102,7 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_db:/var/lib/mysql/
-            - ./db/init/:/docker-entrypoint-initdb.d/
+            - ./db/init/:/home/${ZDI_USER_NAME}/init/
             - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - kanboard-rsyslog
