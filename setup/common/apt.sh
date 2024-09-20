@@ -2,7 +2,9 @@
 
 set -e
 
-. "${BIN}/functions.sh"
+bin=/usr/local/bin
+
+. "${bin}/functions.sh"
 
 log=/var/log/zdi-apt.log
 
