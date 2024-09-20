@@ -3,13 +3,13 @@
 bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
-. "${bin}/source-env-file"
+. "${bin}/export-env-file"
 . "${bin}/functions.sh"
 
-web_root_dir=${ZDI_WEB_ROOT_DIR}
-web_app_dir=${ZDI_WEB_APP_DIR}
-user_id=${ZDI_USER_ID}
 group_id=${ZDI_USER_GROUP_ID}
+user_id=${ZDI_USER_ID}
+web_app_dir=${ZDI_WEB_APP_DIR}
+web_root_dir=${ZDI_WEB_ROOT_DIR}
 
 show_info "Restoring permissions of web directory '${web_root_dir}'."
 

@@ -5,14 +5,11 @@ set -e
 bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
-. "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
-user_name=${ZDI_USER_NAME}
 cmd=${ZDI_CMD_FULL_PATH}
 
-home=/home/${user_name}
-file=${home}/post-start.sh
+file=$HOME/post-start.sh
 
 if [ -n "${cmd}" ]; then
     show_info 'Executing start command.'

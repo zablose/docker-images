@@ -13,5 +13,5 @@ if [ ! -e "${file}" ]; then
     exit 1;
 fi
 
-# shellcheck source=./.example.env
-. "${file}"
+# shellcheck disable=SC2046
+export $(grep -v '^#' "${file}" | xargs)

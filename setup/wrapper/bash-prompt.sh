@@ -6,13 +6,9 @@ bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
-. "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
 container=${ZDI_CONTAINER_NAME}
-user_name=${ZDI_USER_NAME}
-
-home=/home/${user_name}
 
 sudo tee -a /root/.bashrc <<EOF
 
@@ -23,7 +19,7 @@ fi
 
 EOF
 
-sudo tee -a "${home}/.bashrc" <<EOF
+sudo tee -a "$HOME/.bashrc" <<EOF
 
 # Set a fancy prompt
 if [ "\`id -u\`" -ne 0 ]; then

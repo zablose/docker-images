@@ -3,14 +3,11 @@
 bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
-. "${bin}/source-env-file"
+. "${bin}/export-env-file"
 . "${bin}/functions.sh"
 
-user_name=${ZDI_USER_NAME}
-
-home=/home/${user_name}
-wrapper=${home}/wrapper
-log=${home}/zdi-wrapper.log
+wrapper=$HOME/wrapper
+log=$HOME/zdi-wrapper.log
 
 wrapper_start()
 {
