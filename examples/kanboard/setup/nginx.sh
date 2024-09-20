@@ -6,14 +6,13 @@ bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
-. "${bin}/source-env-file"
 . "${bin}/functions.sh"
 
+domain=${ZDI_WEB_DOMAIN}
 env=${ZDI_ENV}
+php_host=${ZDI_PHP_FPM_HOST}
 user=${ZDI_USER_NAME}
 web_root_dir=${ZDI_WEB_ROOT_DIR}
-domain=${ZDI_WEB_DOMAIN}
-php_host=${ZDI_PHP_FPM_HOST}
 
 user_bin=/home/${user}/bin
 log=/var/log/zdi-post-setup-nginx.log
