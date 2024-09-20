@@ -92,7 +92,7 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_db:/var/lib/mysql/
-            - ./db/init/:/home/${ZDI_USER_NAME}/init/
+            - ./db/init/:/home/${ZDI_USER_NAME}/db_init/
             - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - kanboard-rsyslog

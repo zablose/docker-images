@@ -55,3 +55,38 @@ EOF
 
     mariadb_stop
 }
+
+mariadb_process_init_files()
+{
+    dir_init=${1:-$HOME/db_init}
+
+    mariadb_start
+
+    for file in "${dir_init}"/*; do
+        if [[ -f "$file" ]]; then
+            extension="${file##*.}"
+            case "${extension}" in
+            sh)
+                if [ -x "${file}" ]; then
+                    echo "$0: running ${file}"
+                    "${file}"
+                else
+                    echo "$0: sourcing ${file}"
+                    # shellcheck disable=SC1090
+                    . "${file}"
+                fi
+                ;;
+            sql)
+                echo "$0: running ${file}"
+                # shellcheck disable=SC2024
+                sudo mariadb < "$file"
+                ;;
+            *)
+                echo "$0: ignoring ${file}"
+                ;;
+            esac
+        fi
+    done
+
+    mariadb_stop
+}

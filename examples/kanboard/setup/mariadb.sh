@@ -23,6 +23,7 @@ log=/var/log/zdi-post-setup-mariadb.log
 
     mariadb_update_server_config "${user}"
     mariadb_run_default_sql "${db_name}" "${db_user}" "${db_password}" "${user}"
+    mariadb_process_init_files
 
     show_success "Mariadb post setup complete. Log file '${log}'."
 
