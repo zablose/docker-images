@@ -1,0 +1,67 @@
+services:
+
+    proxy-nginx:
+        image: zablose/nginx:1.27
+        build:
+            context: ./../../
+            dockerfile: files/nginx.df
+            args:
+                - ARG_ENV=${ZDI_ENV}
+                - ARG_TIMEZONE=${ZDI_TIMEZONE}
+                - ARG_USER_GROUP_ID=${ZDI_USER_GROUP_ID}
+                - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
+                - ARG_USER_ID=${ZDI_USER_ID}
+                - ARG_USER_NAME=${ZDI_USER_NAME}
+                - ARG_WEB_DOMAIN=${ZDI_WEB_DOMAIN}
+        container_name: proxy-nginx
+        environment:
+            ZDI_CONTAINER_NAME: proxy-nginx
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./.env:/home/${ZDI_USER_NAME}/.env
+            - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
+        logging:
+            driver: syslog
+            options:
+                syslog-address: 'tcp://127.0.0.1:514'
+                tag: 'docker/proxy-nginx'
+        depends_on:
+            - proxy-rsyslog
+        networks:
+            - default
+
+    proxy-pma:
+        image: phpmyadmin:5.2.1
+        container_name: proxy-pma
+        environment:
+            - PMA_ARBITRARY=1
+        logging:
+            driver: syslog
+            options:
+                syslog-address: 'tcp://127.0.0.1:514'
+                tag: 'docker/proxy-pma'
+        depends_on:
+            - proxy-rsyslog
+        networks:
+            - default
+
+    proxy-rsyslog:
+        image: zablose/rsyslog:3.19.1
+        build:
+            context: ./../../
+            dockerfile: files/rsyslog.df
+        container_name: proxy-rsyslog
+        ports:
+            - '514:514'
+        volumes:
+            - ./logs/:/var/log/
+        networks:
+            - default
+
+networks:
+    default:
+        name: zdev_default
+        driver: bridge
+        external: true
