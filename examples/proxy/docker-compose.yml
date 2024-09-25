@@ -21,6 +21,7 @@ services:
             - '443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
+            - ./certs/:/etc/nginx/certs/
             - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
@@ -28,20 +29,43 @@ services:
                 syslog-address: 'tcp://127.0.0.1:514'
                 tag: 'docker/proxy-nginx'
         depends_on:
+            - proxy-pma
             - proxy-rsyslog
         networks:
             - default
 
     proxy-pma:
-        image: phpmyadmin:5.2.1
+        image: zablose/phpmyadmin:5.2.1
+        build:
+            context: ./../../
+            dockerfile: files/phpmyadmin.df
         container_name: proxy-pma
         environment:
-            - PMA_ARBITRARY=1
+            - PMA_ARBITRARY=0
+            - PMA_HOST=proxy-mariadb
+            - PMA_VERBOSE=Proxy MariaDB
+        volumes:
+            - ./certs/:/cert/
         logging:
             driver: syslog
             options:
                 syslog-address: 'tcp://127.0.0.1:514'
                 tag: 'docker/proxy-pma'
+        depends_on:
+            - proxy-rsyslog
+        networks:
+            - default
+
+    proxy-mariadb:
+        image: mariadb:11.4.3
+        container_name: proxy-mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: ${ZDI_DB_PASSWORD}
+        logging:
+            driver: syslog
+            options:
+                syslog-address: 'tcp://127.0.0.1:514'
+                tag: 'docker/proxy-mariadb'
         depends_on:
             - proxy-rsyslog
         networks:

@@ -40,7 +40,7 @@ server {
     ssl_session_tickets         off;
 
     location / {
-        proxy_pass http://proxy-pma;
+        proxy_pass https://proxy-pma;
     }
 }
 EOF

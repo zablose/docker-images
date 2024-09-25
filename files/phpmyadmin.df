@@ -1,0 +1,11 @@
+FROM phpmyadmin:5.2.1
+
+ARG CONF=/etc/apache2/sites-available/000-default.conf
+
+RUN a2enmod ssl && \
+    sed -ri -e 's,80,443,' ${CONF} && \
+    sed -i -e '/^<\/VirtualHost>/i SSLEngine on' ${CONF} && \
+    sed -i -e '/^<\/VirtualHost>/i SSLCertificateFile /cert/domain.crt' ${CONF} && \
+    sed -i -e '/^<\/VirtualHost>/i SSLCertificateKeyFile /cert/domain.key' ${CONF}
+
+EXPOSE 443
