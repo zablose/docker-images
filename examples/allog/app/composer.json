@@ -1,0 +1,28 @@
+{
+    "name": "zablose/allog-server",
+    "type": "project",
+    "description": "Allog Server",
+    "keywords": [
+        "logging",
+        "requests",
+        "server"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergejs Zablockis",
+            "email": "zablose@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "zablose/allog": "^2.2.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
