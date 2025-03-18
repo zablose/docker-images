@@ -13,7 +13,7 @@ services:
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
                 - ARG_WEB_DOMAIN=${ZDI_WEB_DOMAIN}
-                - ARG_WEB_ROOT_DIR=${ZDI_WEB_ROOT_DIR}
+                - ARG_WEB_ROOT_DIR=${ZDI_DIR_WEB_APP_ROOT}
         container_name: kanboard-nginx
         environment:
             ZDI_CONTAINER_NAME: kanboard-nginx
@@ -23,9 +23,9 @@ services:
             - '443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
-            - kanboard_web:${ZDI_WEB_ROOT_DIR}/
-            - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
-            - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
+            - kanboard_web:${ZDI_DIR_WEB_APP_ROOT}/
+            - ./app/data/:${ZDI_DIR_WEB_APP_ROOT}/data/
+            - ./app/plugins/:${ZDI_DIR_WEB_APP_ROOT}/plugins/
             - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
@@ -48,7 +48,7 @@ services:
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
-                - ARG_WEB_ROOT_DIR=${ZDI_WEB_ROOT_DIR}
+                - ARG_WEB_ROOT_DIR=${ZDI_DIR_WEB_APP_ROOT}
         container_name: kanboard-php-fpm
         environment:
             ZDI_CONTAINER_NAME: kanboard-php-fpm
@@ -56,9 +56,9 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
-            - kanboard_web:${ZDI_WEB_ROOT_DIR}/
-            - ./app/data/:${ZDI_WEB_ROOT_DIR}/data/
-            - ./app/plugins/:${ZDI_WEB_ROOT_DIR}/plugins/
+            - kanboard_web:${ZDI_DIR_WEB_APP_ROOT}/
+            - ./app/data/:${ZDI_DIR_WEB_APP_ROOT}/data/
+            - ./app/plugins/:${ZDI_DIR_WEB_APP_ROOT}/plugins/
             - ./setup/php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog

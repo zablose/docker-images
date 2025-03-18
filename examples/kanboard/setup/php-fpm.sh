@@ -13,7 +13,7 @@ db_name=${ZDI_DB_NAME}
 db_password=${ZDI_DB_PASSWORD}
 db_user=${ZDI_DB_USERNAME}
 user=${ZDI_USER_NAME}
-web_root_dir=${ZDI_WEB_ROOT_DIR}
+web_root_dir=${ZDI_DIR_WEB_APP_ROOT}
 
 user_bin=/home/${user}/bin
 file=https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.39.tar.gz
