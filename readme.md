@@ -16,6 +16,7 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 | ZDI_DB_NAME          | env        |                      |                                                             |
 | ZDI_DB_PASSWORD      | env        |                      |                                                             |
 | ZDI_DB_USERNAME      | env        |                      |                                                             |
+| ZDI_DIR_WEB          | env        | /home/web            |                                                             |
 | ZDI_DIR_WEB_APP      | env        | /home/web/app        |                                                             |
 | ZDI_DIR_WEB_APP_ROOT | arg        | /home/web/app/public |                                                             |
 | ZDI_ENV              | arg,env    | prod                 | Set to 'dev' to display errors in PHP.                      |
@@ -28,7 +29,6 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 | ZDI_VERSION_COMPOSER | arg        | 2.7.9                |                                                             |
 | ZDI_VERSION_PHP      | arg,env    | 8.3                  |                                                             |
 | ZDI_WEB_DOMAIN       | env        | localhost            |                                                             |
-|                      |            |                      |                                                             |
 
 ## Images
 
