@@ -8,7 +8,7 @@ bin=/usr/local/bin
 
 group_id=${ZDI_USER_GROUP_ID}
 user_id=${ZDI_USER_ID}
-web_app_dir=${ZDI_WEB_APP_DIR}
+web_app_dir=${ZDI_DIR_WEB_APP}
 web_root_dir=${ZDI_WEB_ROOT_DIR}
 
 show_info "Restoring permissions of web directory '${web_root_dir}'."

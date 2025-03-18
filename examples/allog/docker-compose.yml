@@ -13,7 +13,7 @@ services:
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
                 - ARG_WEB_DOMAIN=${ZDI_WEB_DOMAIN}
-                - ARG_WEB_ROOT_DIR=${ZDI_WEB_APP_DIR}
+                - ARG_WEB_ROOT_DIR=${ZDI_DIR_WEB_APP}
         container_name: allog-nginx
         environment:
             ZDI_CONTAINER_NAME: allog-nginx
@@ -46,7 +46,7 @@ services:
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
-                - ARG_WEB_ROOT_DIR=${ZDI_WEB_APP_DIR}
+                - ARG_WEB_ROOT_DIR=${ZDI_DIR_WEB_APP}
         container_name: allog-php-fpm
         environment:
             ZDI_CONTAINER_NAME: allog-php-fpm

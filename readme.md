@@ -25,7 +25,7 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 | ZDI_USER_NAME        | arg        | debian            |                                                             |
 | ZDI_VERSION_COMPOSER | arg        | 2.7.9             |                                                             |
 | ZDI_VERSION_PHP      | arg,env    | 8.3               |                                                             |
-| ZDI_WEB_APP_DIR      | env        | /home/web/laravel |                                                             |
+| ZDI_DIR_WEB_APP      | env        | /home/web/laravel |                                                             |
 | ZDI_WEB_DOMAIN       | env        | localhost         |                                                             |
 | ZDI_WEB_ROOT_DIR     | arg        | /home/web         |                                                             |
 |                      |            |                   |                                                             |

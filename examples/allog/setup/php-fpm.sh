@@ -9,7 +9,7 @@ bin=/usr/local/bin
 . "${bin}/functions.sh"
 
 user=${ZDI_USER_NAME}
-web_app_dir=${ZDI_WEB_APP_DIR}
+web_app_dir=${ZDI_DIR_WEB_APP}
 
 user_bin=/home/${user}/bin
 log=/var/log/zdi-post-setup-php-fpm.log
