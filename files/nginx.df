@@ -18,16 +18,18 @@ ARG SNIPPETS=/etc/nginx/snippets
 
 ENV ZDI_CMD_FULL_PATH=/etc/init.d/nginx
 
-COPY ./setup/bin/* $BIN/
 COPY ./images/nginx/conf/default* $CONF/
 COPY ./images/nginx/conf/main.conf $SNIPPETS/
-COPY ./setup/common/* $SETUP/
+COPY ./images/nginx/setup/* $SETUP/
 COPY ./images/nginx/user-bin/* $HOME/bin/
+COPY ./setup/bin/* $BIN/
+COPY ./setup/common/* $SETUP/
 COPY ./setup/wrapper/* $HOME/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
+RUN bash $SETUP/certbot.sh
 
 RUN chmod 755 $BIN/* && \
     bash $SETUP/timezone.sh && \
