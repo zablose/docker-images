@@ -35,6 +35,8 @@ services:
         depends_on:
             - kanboard-php-fpm
             - kanboard-rsyslog
+        networks:
+            - default
 
     kanboard-php-fpm:
         image: zablose/php-fpm:${ZDI_VERSION_PHP}
@@ -68,6 +70,8 @@ services:
         depends_on:
             - kanboard-mariadb
             - kanboard-rsyslog
+        networks:
+            - default
 
     kanboard-mariadb:
         image: zablose/mariadb:10.11.6
@@ -96,6 +100,8 @@ services:
             - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - kanboard-rsyslog
+        networks:
+            - default
 
     kanboard-rsyslog:
         image: zablose/rsyslog:3.19.1
@@ -107,7 +113,15 @@ services:
             - '514:514'
         volumes:
             - ./logs/:/var/log/
+        networks:
+            - default
 
 volumes:
     kanboard_web:
     kanboard_db:
+
+networks:
+    default:
+        name: zdev_default
+        driver: bridge
+        external: true
