@@ -15,4 +15,4 @@ docker build -f ./files/nginx.df -t zablose/nginx-example:1.27 --build-arg ARG_W
 docker run -it zablose/nginx:1.27 bash
 ```
 
-[Back](../readme.md)
+[Back](../../readme.md)
