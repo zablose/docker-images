@@ -2,6 +2,8 @@
 
 Custom Docker images with improvements like colored prompt, vim, htop, etc.
 
+## [Hosts](./readme/hosts.md)
+
 ## Environment variables
 
 * Arg - Variable is used as `ARG` during image build;
