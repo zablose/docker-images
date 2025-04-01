@@ -33,7 +33,7 @@ Custom Docker images with improvements like colored prompt, vim, htop, etc.
 
 ## Images
 
-* [Mariadb](./readme/mariadb.md)
-* [Nginx](./readme/nginx.md)
-* [Php-fpm](./readme/php-fpm.md)
-* [Rsyslog](./readme/rsyslog.md)
+* [Mariadb](./readme/images/mariadb.md)
+* [Nginx](./readme/images/nginx.md)
+* [Php-fpm](./readme/images/php-fpm.md)
+* [Rsyslog](./readme/images/rsyslog.md)
