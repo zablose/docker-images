@@ -19,8 +19,8 @@ services:
             ZDI_CONTAINER_NAME: kanboard-nginx
             ZDI_PHP_FPM_HOST: kanboard-php-fpm
         ports:
-            - '80:80'
-            - '443:443'
+            - '${ZDI_HOST_IP}:80:80'
+            - '${ZDI_HOST_IP}:443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - kanboard_web:${ZDI_DIR_WEB_APP_ROOT}/
@@ -30,7 +30,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/kanboard-nginx'
         depends_on:
             - kanboard-php-fpm
@@ -65,7 +65,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/kanboard-php-fpm'
         depends_on:
             - kanboard-mariadb
@@ -91,7 +91,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/kanboard-mariadb'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
@@ -110,7 +110,7 @@ services:
             dockerfile: files/rsyslog.df
         container_name: kanboard-rsyslog
         ports:
-            - '514:514'
+            - '${ZDI_HOST_IP}:514:514'
         volumes:
             - ./logs/:/var/log/
         networks:

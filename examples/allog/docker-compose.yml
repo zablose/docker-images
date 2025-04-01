@@ -19,8 +19,8 @@ services:
             ZDI_CONTAINER_NAME: allog-nginx
             ZDI_PHP_FPM_HOST: allog-php-fpm
         ports:
-            - '80:80'
-            - '443:443'
+            - '${ZDI_HOST_IP}:80:80'
+            - '${ZDI_HOST_IP}:443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - ./:/home/web/
@@ -28,7 +28,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/allog-nginx'
         depends_on:
             - allog-php-fpm
@@ -61,7 +61,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/allog-php-fpm'
         depends_on:
             - allog-mariadb
@@ -87,7 +87,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/allog-mariadb'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
@@ -106,7 +106,7 @@ services:
             dockerfile: files/rsyslog.df
         container_name: allog-rsyslog
         ports:
-            - '514:514'
+            - '${ZDI_HOST_IP}:514:514'
         volumes:
             - ./logs/:/var/log/
         networks:

@@ -17,8 +17,8 @@ services:
         environment:
             ZDI_CONTAINER_NAME: proxy-nginx
         ports:
-            - '80:80'
-            - '443:443'
+            - '${ZDI_HOST_IP}:80:80'
+            - '${ZDI_HOST_IP}:443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - ./certs/:/etc/nginx/certs/
@@ -26,7 +26,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/proxy-nginx'
         depends_on:
             - proxy-pma
@@ -49,7 +49,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/proxy-pma'
         depends_on:
             - proxy-rsyslog
@@ -64,7 +64,7 @@ services:
         logging:
             driver: syslog
             options:
-                syslog-address: 'tcp://127.0.0.1:514'
+                syslog-address: 'tcp://${ZDI_HOST_IP}:514'
                 tag: 'docker/proxy-mariadb'
         depends_on:
             - proxy-rsyslog
@@ -78,7 +78,7 @@ services:
             dockerfile: files/rsyslog.df
         container_name: proxy-rsyslog
         ports:
-            - '514:514'
+            - '${ZDI_HOST_IP}:514:514'
         volumes:
             - ./logs/:/var/log/
         networks:
