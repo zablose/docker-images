@@ -14,9 +14,13 @@ db_password=${ZDI_DB_PASSWORD}
 db_user=${ZDI_DB_USERNAME}
 user=${ZDI_USER_NAME}
 web_root_dir=${ZDI_DIR_WEB_APP_ROOT}
+version_kanboard=${ZDI_VERSION_KANBOARD}
+version_allog=${ZDI_VERSION_ALLOG}
 
-user_bin=/home/${user}/bin
-file=https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.39.tar.gz
+user_home=/home/${user}
+user_bin=${user_home}/bin
+composer=${user_bin}/composer
+file=https://github.com/kanboard/kanboard/archive/refs/tags/v${version_kanboard}.tar.gz
 log=/var/log/zdi-post-setup-php-fpm.log
 
 {
@@ -25,7 +29,7 @@ log=/var/log/zdi-post-setup-php-fpm.log
     bash "${user_bin}/r-web"
 
     cd ~
-    wget ${file} --output-document=kanboard.tgz && \
+    wget "${file}" --output-document=kanboard.tgz && \
     tar xzf kanboard.tgz -C "${web_root_dir}" --strip-components=1 && \
     rm kanboard.tgz
 
@@ -48,6 +52,14 @@ define('DB_HOSTNAME', '${db_host}');
 define('DB_NAME', '${db_name}');
 
 EOF
+
+    sed -i -e "/vendor\/autoload.php/a (new \\\Zablose\\\Allog\\\Client((new \\\Zablose\\\Allog\\\Config\\\Client())->read(__DIR__.'/../.env')))->send();" app/common.php
+
+    wget "https://raw.githubusercontent.com/kanboard/kanboard/refs/tags/v${version_kanboard}/composer.json"
+    wget "https://raw.githubusercontent.com/kanboard/kanboard/refs/tags/v${version_kanboard}/composer.lock"
+
+    ${composer} require "zablose/allog:${version_allog}"
+    ${composer} dump-autoload
 
     show_success "Php-fpm post setup complete. Log file '${log}'."
 
