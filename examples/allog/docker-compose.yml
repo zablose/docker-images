@@ -44,6 +44,8 @@ services:
             context: ./../../
             dockerfile: files/php-fpm.df
             args:
+                - ARG_ADD_COMPOSER=${ZDI_ADD_COMPOSER}
+                - ARG_ADD_LARAVEL=${ZDI_ADD_LARAVEL}
                 - ARG_DIR_WEB_APP=${ZDI_DIR_WEB_APP}
                 - ARG_ENV=${ZDI_ENV}
                 - ARG_TIMEZONE=${ZDI_TIMEZONE}
@@ -51,6 +53,8 @@ services:
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
+                - ARG_VERSION_COMPOSER=${ZDI_VERSION_COMPOSER}
+                - ARG_VERSION_PHP=${ZDI_VERSION_PHP}
         container_name: allog-php-fpm
         environment:
             ZDI_CONTAINER_NAME: allog-php-fpm

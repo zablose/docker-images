@@ -6,7 +6,7 @@ services:
             context: ./../../
             dockerfile: files/nginx.df
             args:
-                - ARG_DIR_WEB_APP=${ZDI_DIR_WEB_APP}
+                - ARG_DIR_WEB_APP=${ZDI_DIR_WEB}
                 - ARG_ENV=${ZDI_ENV}
                 - ARG_TIMEZONE=${ZDI_TIMEZONE}
                 - ARG_USER_GROUP_ID=${ZDI_USER_GROUP_ID}
@@ -23,9 +23,9 @@ services:
             - '${ZDI_HOST_IP}:443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
-            - kanboard_web:${ZDI_DIR_WEB_APP_ROOT}/
-            - ./app/data/:${ZDI_DIR_WEB_APP_ROOT}/data/
-            - ./app/plugins/:${ZDI_DIR_WEB_APP_ROOT}/plugins/
+            - kanboard_web:${ZDI_DIR_WEB}/
+            - ./app/data/:${ZDI_DIR_WEB}/data/
+            - ./app/plugins/:${ZDI_DIR_WEB}/plugins/
             - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
@@ -44,13 +44,17 @@ services:
             context: ./../../
             dockerfile: files/php-fpm.df
             args:
-                - ARG_DIR_WEB_APP=${ZDI_DIR_WEB_APP}
+                - ARG_ADD_COMPOSER=${ZDI_ADD_COMPOSER}
+                - ARG_ADD_LARAVEL=${ZDI_ADD_LARAVEL}
+                - ARG_DIR_WEB_APP=${ZDI_DIR_WEB}
                 - ARG_ENV=${ZDI_ENV}
                 - ARG_TIMEZONE=${ZDI_TIMEZONE}
                 - ARG_USER_GROUP_ID=${ZDI_USER_GROUP_ID}
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
+                - ARG_VERSION_COMPOSER=${ZDI_VERSION_COMPOSER}
+                - ARG_VERSION_PHP=${ZDI_VERSION_PHP}
         container_name: kanboard-php-fpm
         environment:
             ZDI_CONTAINER_NAME: kanboard-php-fpm
@@ -58,10 +62,10 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
-            - kanboard_web:${ZDI_DIR_WEB_APP_ROOT}/
-            - ./.env:${ZDI_DIR_WEB_APP_ROOT}/.env
-            - ./app/data/:${ZDI_DIR_WEB_APP_ROOT}/data/
-            - ./app/plugins/:${ZDI_DIR_WEB_APP_ROOT}/plugins/
+            - kanboard_web:${ZDI_DIR_WEB}/
+            - ./.env:${ZDI_DIR_WEB}/.env
+            - ./app/data/:${ZDI_DIR_WEB}/data/
+            - ./app/plugins/:${ZDI_DIR_WEB}/plugins/
             - ./setup/php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
