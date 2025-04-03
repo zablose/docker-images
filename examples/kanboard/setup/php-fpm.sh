@@ -13,7 +13,7 @@ db_name=${ZDI_DB_NAME}
 db_password=${ZDI_DB_PASSWORD}
 db_user=${ZDI_DB_USERNAME}
 user=${ZDI_USER_NAME}
-web_root_dir=${ZDI_DIR_WEB_APP_ROOT}
+dir_web=${ZDI_DIR_WEB}
 version_kanboard=${ZDI_VERSION_KANBOARD}
 version_allog=${ZDI_VERSION_ALLOG}
 
@@ -30,15 +30,15 @@ log=/var/log/zdi-post-setup-php-fpm.log
 
     cd ~
     wget "${file}" --output-document=kanboard.tgz && \
-    tar xzf kanboard.tgz -C "${web_root_dir}" --strip-components=1 && \
+    tar xzf kanboard.tgz -C "${dir_web}" --strip-components=1 && \
     rm kanboard.tgz
 
     bash "${user_bin}/r-web"
 
-    reas "${web_root_dir}/data" 770 660
-    reas "${web_root_dir}/plugins" 770 660
+    reas "${dir_web}/data" 770 660
+    reas "${dir_web}/plugins" 770 660
 
-    cd "${web_root_dir}"
+    cd "${dir_web}"
     tee ./config.php <<EOF
 <?php
 
