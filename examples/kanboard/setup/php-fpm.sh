@@ -58,7 +58,7 @@ EOF
     wget "https://raw.githubusercontent.com/kanboard/kanboard/refs/tags/v${version_kanboard}/composer.json"
     wget "https://raw.githubusercontent.com/kanboard/kanboard/refs/tags/v${version_kanboard}/composer.lock"
 
-    ${composer} require "zablose/allog:${version_allog}"
+    ${composer} require "zablose/allog:${version_allog}" --update-no-dev
     ${composer} dump-autoload
 
     show_success "Php-fpm post setup complete. Log file '${log}'."
