@@ -14,6 +14,7 @@ ARG ARG_VERSION_COMPOSER=2.7.9
 ARG ARG_VERSION_PHP=8.3
 
 ARG BIN=/usr/local/bin
+ARG HOME=/home/$ARG_USER_NAME
 ARG SETUP=/tmp/setup
 
 ENV ZDI_CMD_FULL_PATH=/etc/init.d/php${ARG_VERSION_PHP}-fpm
@@ -21,8 +22,9 @@ ENV ZDI_CMD_FULL_PATH=/etc/init.d/php${ARG_VERSION_PHP}-fpm
 COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/php-fpm/setup/* $SETUP/
-COPY ./images/php-fpm/bin/* /home/$ARG_USER_NAME/bin/
-COPY ./setup/wrapper/* /home/$ARG_USER_NAME/wrapper/
+COPY ./images/php-fpm/bin/* $HOME/bin/
+COPY ./images/php-fpm/user-bin/* $HOME/bin/
+COPY ./setup/wrapper/* $HOME/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
