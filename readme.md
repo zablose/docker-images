@@ -15,6 +15,13 @@ Go to your project directory, then run:
 git submodule add https://github.com/zablose/docker-images.git zdi
 ```
 
+Other useful commands:
+```shell
+git submodule init
+git submodule update
+git submodule update --remote
+```
+
 ## Images
 
 * [Mariadb](./readme/images/mariadb.md)
