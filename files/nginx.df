@@ -1,7 +1,7 @@
 FROM nginx:1.27
 
 ARG ARG_CMD_USER=www-data
-ARG ARG_DIR_WEB_APP=/home/web
+ARG ARG_DIR_WEB=/home/web
 ARG ARG_ENV=prod
 ARG ARG_TIMEZONE=Europe/London
 ARG ARG_USER_GROUP_ID=1000
@@ -41,7 +41,7 @@ RUN chmod 755 $BIN/* && \
 
 USER $ARG_USER_NAME
 
-WORKDIR $ARG_DIR_WEB_APP
+WORKDIR $ARG_DIR_WEB
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["wrapper.sh"]
