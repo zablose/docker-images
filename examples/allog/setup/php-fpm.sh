@@ -14,6 +14,8 @@ web_app_dir=${ZDI_DIR_WEB_APP}
 user_bin=/home/${user}/bin
 log=/var/log/zdi-post-setup-php-fpm.log
 
+. "${user_bin}/functions.sh"
+
 {
     show_info 'Php-fpm post setup.'
 
@@ -21,6 +23,10 @@ log=/var/log/zdi-post-setup-php-fpm.log
 
     cd "${web_app_dir}"
     php "${user_bin}/composer" install
+
+    wait_for_db
+
+    php setup-db.php
 
     show_success "Php-fpm post setup complete. Log file '${log}'."
 

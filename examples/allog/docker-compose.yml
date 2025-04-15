@@ -23,7 +23,7 @@ services:
             - '${ZDI_HOST_IP}:443:443'
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
-            - ./:/home/web/
+            - ./:${ZDI_DIR_WEB}/
             - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
@@ -62,7 +62,7 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - $HOME/.composer/cache/:/home/${ZDI_USER_NAME}/.composer/cache/
-            - ./:/home/web/
+            - ./:${ZDI_DIR_WEB}/
             - ./setup/php-fpm.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
@@ -98,7 +98,6 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - allog_db:/var/lib/mysql/
-            - ./db/init/:/home/${ZDI_USER_NAME}/db_init/
             - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - allog-rsyslog
