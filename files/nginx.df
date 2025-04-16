@@ -19,7 +19,7 @@ ENV ZDI_CMD_FULL_PATH=/etc/init.d/nginx
 
 COPY ./images/nginx/conf/default* $CONF/
 COPY ./images/nginx/conf/main.conf $SNIPPETS/
-COPY ./images/nginx/post-setup.sh $HOME/post-setup.sh
+COPY ./images/nginx/post-setup.sh $HOME/
 COPY ./images/nginx/setup/* $SETUP/
 COPY ./images/nginx/user-bin/* $HOME/bin/
 COPY ./setup/bin/* $BIN/

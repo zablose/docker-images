@@ -96,7 +96,6 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - allog_db:/var/lib/mysql/
-            - ./setup/mariadb.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         depends_on:
             - allog-rsyslog
         networks:

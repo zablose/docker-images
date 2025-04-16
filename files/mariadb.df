@@ -17,6 +17,7 @@ ENV ZDI_CMD_FULL_PATH=/etc/init.d/mariadb
 COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/mariadb/setup/* $SETUP/
+COPY ./images/mariadb/post-setup.sh $HOME/
 COPY ./images/mariadb/user-bin/* $HOME/bin/
 COPY ./setup/wrapper/* $HOME/wrapper/
 
