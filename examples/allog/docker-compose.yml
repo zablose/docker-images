@@ -23,7 +23,6 @@ services:
         volumes:
             - ./.env:/home/${ZDI_USER_NAME}/.env
             - ./:${ZDI_DIR_WEB}/
-            - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
             options:

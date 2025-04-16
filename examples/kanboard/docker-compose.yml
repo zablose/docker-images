@@ -25,7 +25,6 @@ services:
             - kanboard_web:${ZDI_DIR_WEB}/
             - ./app/data/:${ZDI_DIR_WEB}/data/
             - ./app/plugins/:${ZDI_DIR_WEB}/plugins/
-            - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
             driver: syslog
             options:
