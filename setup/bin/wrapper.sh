@@ -38,11 +38,11 @@ wrapper_stop()
 }
 
 tail -f "${log}" &
-echo "Tailing log from '${log}'." >> "${log}" 2>&1
+show_info "Tailing log from '${log}'." >> "${log}" 2>&1
 
 wrapper_start
 
-echo 'Waiting for termination signal to stop container gracefully.' >> "${log}" 2>&1
+show_info 'Waiting for termination signal to stop container gracefully.' >> "${log}" 2>&1
 
 trap 'wrapper_stop; sleep 1; exit 0' SIGTERM SIGQUIT
 while kill -0 "$$" > /dev/null 2>&1; do
