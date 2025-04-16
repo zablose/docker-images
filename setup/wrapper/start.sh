@@ -14,7 +14,7 @@ file=$HOME/post-start.sh
 if [ -n "${cmd}" ]; then
     show_info 'Executing start command.'
     sudo "${cmd}" start
-    show_success 'Executing complete.'
+    show_success 'Execution complete.'
 else
     show_warning "Start command is not set by 'ZDI_CMD_FULL_PATH' env variable. Skipping."
 fi
@@ -22,7 +22,7 @@ fi
 if [ -e "${file}" ]; then
     show_info 'Sourcing custom start script.'
 
-    # shellcheck source=./post-start.example.sh
+    # shellcheck source=./post-start.sh
     . "${file}"
 
     show_success 'Sourcing complete.'
