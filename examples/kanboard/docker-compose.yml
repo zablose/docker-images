@@ -13,7 +13,6 @@ services:
                 - ARG_USER_GROUP_NAME=${ZDI_USER_GROUP_NAME}
                 - ARG_USER_ID=${ZDI_USER_ID}
                 - ARG_USER_NAME=${ZDI_USER_NAME}
-                - ARG_WEB_DOMAIN=${ZDI_WEB_DOMAIN}
         container_name: kanboard-nginx
         environment:
             ZDI_CONTAINER_NAME: kanboard-nginx

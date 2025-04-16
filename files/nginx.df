@@ -8,7 +8,6 @@ ARG ARG_USER_GROUP_ID=1000
 ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
 ARG ARG_USER_NAME=debian
-ARG ARG_WEB_DOMAIN=localhost
 
 ARG BIN=/usr/local/bin
 ARG CONF=/etc/nginx/conf.d
