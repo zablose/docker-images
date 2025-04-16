@@ -27,4 +27,5 @@ git submodule update --remote
 * [Mariadb](./readme/images/mariadb.md)
 * [Nginx](./readme/images/nginx.md)
 * [Php-fpm](./readme/images/php-fpm.md)
+* [PhpMyAdmin](./readme/images/phpmyadmin.md)
 * [Rsyslog](./readme/images/rsyslog.md)
