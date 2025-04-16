@@ -32,7 +32,7 @@ log=/var/log/zdi-user.log
 
     tee -a "${bashrc}" <<EOF
 
-    PATH=\$PATH:${dir_home}/bin
+PATH=\$PATH:${dir_home}/bin
 
 EOF
 
