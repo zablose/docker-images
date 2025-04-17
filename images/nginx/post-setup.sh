@@ -7,6 +7,7 @@ bin=/usr/local/bin
 . "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
 . "${bin}/functions.sh"
+. "${bin}/source-env-file"
 
 domain=${ZDI_WEB_DOMAIN}
 env=${ZDI_ENV}

@@ -14,7 +14,7 @@ lock=$HOME/.setup.lock
 if [ -e "${file}" ]; then
     show_info 'Sourcing custom post setup script.'
 
-    # shellcheck source=./post-setup.example.sh
+    # shellcheck source=./post-setup.sh
     . "${file}"
 
     show_success 'Sourcing complete.'

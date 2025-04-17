@@ -6,12 +6,12 @@ bin=/usr/local/bin
 
 . "${bin}/functions.sh"
 
-file=$HOME/.env
+file="$HOME/.env"
 
 if [ ! -e "${file}" ]; then
     show_error "Environment file '${file}' does not exist.";
     exit 1;
 fi
 
-# shellcheck disable=SC2046
-export $(grep -v '^#' "${file}" | xargs)
+# shellcheck disable=SC1090
+source "${file}"

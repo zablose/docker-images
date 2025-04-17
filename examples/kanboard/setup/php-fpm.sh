@@ -7,6 +7,7 @@ bin=/usr/local/bin
 . "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
 . "${bin}/functions.sh"
+. "${bin}/source-env-file"
 
 db_host=${ZDI_DB_HOSTNAME}
 db_name=${ZDI_DB_NAME}

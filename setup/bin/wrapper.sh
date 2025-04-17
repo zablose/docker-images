@@ -3,7 +3,6 @@
 bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
-. "${bin}/export-env-file"
 . "${bin}/functions.sh"
 
 wrapper=$HOME/wrapper

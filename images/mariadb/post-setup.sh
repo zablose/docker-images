@@ -4,9 +4,10 @@ set -e
 
 bin=/usr/local/bin
 
-. "${bin}/exit-if-root"
 . "${bin}/exit-if-locked"
+. "${bin}/exit-if-root"
 . "${bin}/functions.sh"
+. "${bin}/source-env-file"
 
 user=${ZDI_USER_NAME}
 db_name=${ZDI_DB_NAME}

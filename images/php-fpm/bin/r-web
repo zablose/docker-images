@@ -3,8 +3,8 @@
 bin=/usr/local/bin
 
 . "${bin}/exit-if-root"
-. "${bin}/export-env-file"
 . "${bin}/functions.sh"
+. "${bin}/source-env-file"
 
 group_id=${ZDI_USER_GROUP_ID}
 user_id=${ZDI_USER_ID}
