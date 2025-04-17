@@ -34,6 +34,7 @@ RUN bash $SETUP/apt.sh
 RUN bash $SETUP/debian-deps.sh
 RUN bash $SETUP/php-install.sh
 RUN bash $SETUP/php-install-extensions.sh
+RUN bash $SETUP/usr-local-bin.sh
 
 RUN chmod 755 $BIN/* && \
     bash $SETUP/timezone.sh && \
