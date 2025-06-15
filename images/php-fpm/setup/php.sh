@@ -20,8 +20,8 @@ log=/var/log/zdi-php.log
 
 update()
 {
-    report=$(if [ "${env}" == 'dev' ]; then echo 'E_ALL'; else echo 'E_ALL \& ~E_DEPRECATED \& ~E_STRICT'; fi)
-    display=$(if [ "${env}" == 'dev' ]; then echo 'On'; else echo 'Off'; fi)
+    report=$(if [ "${env}" == 'production' ]; then echo 'E_ALL \& ~E_DEPRECATED \& ~E_STRICT'; else echo 'E_ALL'; fi)
+    display=$(if [ "${env}" == 'production' ]; then echo 'Off'; else echo 'On'; fi)
 
     sudo sed -i -e "s/^error_reporting\s.*$/error_reporting = ${report}/" "$1"
     sudo sed -i -e "s/^display_errors\s.*$/display_errors = ${display}/" "$1"
@@ -33,7 +33,7 @@ update()
 
 update_fpm()
 {
-    log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
+    log_level=$(if [ "${env}" == 'production' ]; then echo 'error'; else echo 'notice'; fi)
 
     sudo sed -i -e "s~^error_log\s.*$~error_log = /proc/self/fd/2~" "${fpm_conf}"
     sudo sed -i -e "s~^;log_level\s.*$~log_level = ${log_level}~" "${fpm_conf}"

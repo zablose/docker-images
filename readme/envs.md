@@ -16,7 +16,7 @@
 | ZDI_DIR_WEB          | env        | /home/web            |                                                                                                      |
 | ZDI_DIR_WEB_APP      | env        | /home/web/app        |                                                                                                      |
 | ZDI_DIR_WEB_APP_ROOT | arg        | /home/web/app/public |                                                                                                      |
-| ZDI_ENV              | arg,env    | prod                 | Set to 'dev' to display errors in PHP.                                                               |
+| ZDI_ENV              | arg,env    | production           | If not set to 'production' errors will be displayed in PHP.                                          |
 | ZDI_HOST_IP          | env        | 127.0.0.10           | Can be used to expose different IPs on host, to be able to run multiple services that use same port. |
 | ZDI_PHP_FPM_HOST     | arg,dc     |                      | A php-fpm service name from your 'docker-compose.yml' file.                                          |
 | ZDI_TIMEZONE         | arg,env    | Europe/London        |                                                                                                      |

@@ -3,7 +3,7 @@
 nginx_set_user_and_log()
 {
     env=${1:-}
-    log_level=$(if [ "${env}" == 'dev' ]; then echo 'notice'; else echo 'error'; fi)
+    log_level=$(if [ "${env}" == 'production' ]; then echo 'error'; else echo 'notice'; fi)
     nginx_conf=/etc/nginx/nginx.conf
 
     sudo sed -i -e "s/^user\s.*$/user www-data www-data;/" "${nginx_conf}"
