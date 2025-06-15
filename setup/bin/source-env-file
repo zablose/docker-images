@@ -9,9 +9,8 @@ bin=/usr/local/bin
 file="$HOME/.env"
 
 if [ ! -e "${file}" ]; then
-    show_error "Environment file '${file}' does not exist.";
-    exit 1;
+    show_warning "Environment file '${file}' does not exist.";
+else
+    # shellcheck disable=SC1090
+    source "${file}"
 fi
-
-# shellcheck disable=SC1090
-source "${file}"
