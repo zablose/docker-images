@@ -24,10 +24,10 @@
 | ZDI_USER_GROUP_NAME  | arg        | debian               |                                                                                                      |
 | ZDI_USER_ID          | arg,env    | 1000                 |                                                                                                      |
 | ZDI_USER_NAME        | arg        | debian               |                                                                                                      |
-| ZDI_VERSION_COMPOSER | arg        | 2.7.9                |                                                                                                      |
+| ZDI_VERSION_COMPOSER | arg        | 2.8.7                |                                                                                                      |
 | ZDI_VERSION_NODEJS   | arg        | 22                   | What version of Node.js to install by default.                                                       |
 | ZDI_VERSION_NVM      | arg        | 0.40.2               | What version of NVM to install.                                                                      |
-| ZDI_VERSION_PHP      | arg,env    | 8.3                  |                                                                                                      |
+| ZDI_VERSION_PHP      | arg,env    | 8.4                  |                                                                                                      |
 | ZDI_WEB_DOMAIN       | env        | localhost            |                                                                                                      |
 
 [Back](../readme.md)
