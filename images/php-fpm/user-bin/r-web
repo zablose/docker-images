@@ -22,7 +22,7 @@ else
     fi
 fi
 
-show_info "Restoring permissions in web directory '${dir_web_app}'."
+show_info "Restoring permissions in the web directory '${dir_web}'."
 
 ${cmd} reas "${dir_web}" 750 640
 ${cmd} chmod 750 "${dir_web}"
