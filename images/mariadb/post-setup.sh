@@ -4,7 +4,6 @@ set -e
 
 bin=/usr/local/bin
 
-. "${bin}/exit-if-locked"
 . "${bin}/exit-if-root"
 . "${bin}/functions.sh"
 . "${bin}/source-env-file"
