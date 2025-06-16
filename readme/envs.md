@@ -2,7 +2,7 @@
 
 * Arg - Variable is used as `ARG` during image build;
 * Env - Variable is used as `ENV` inside container;
-* Dc - Variable is set in docker compose file.
+* Dc - Variable is set in a docker compose file.
 
 | Name                 | Arg,Env,Dc | Default              | Description                                                                                          |
 |----------------------|------------|----------------------|------------------------------------------------------------------------------------------------------|
@@ -10,6 +10,7 @@
 | ZDI_ADD_LARAVEL      | arg        | true                 |                                                                                                      |
 | ZDI_ADD_NVM          | arg        | true                 | Install [NVM](https://github.com/nvm-sh/nvm) a version manager for [Node.js](https://nodejs.org).    |
 | ZDI_CONTAINER_NAME   | env,dc     |                      | Container name, used in Bash prompt instead of hostname.                                             |
+| ZDI_DB_HOSTNAME      | env,dc     |                      |                                                                                                      |
 | ZDI_DB_NAME          | env        |                      |                                                                                                      |
 | ZDI_DB_PASSWORD      | env        |                      |                                                                                                      |
 | ZDI_DB_USERNAME      | env        |                      |                                                                                                      |
