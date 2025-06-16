@@ -26,7 +26,7 @@ COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/php-fpm/setup/* $SETUP/
 COPY ./images/php-fpm/user-bin/* $HOME/bin/
-COPY ./setup/wrapper/* $HOME/wrapper/
+COPY ./setup/wrapper/* /root/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
@@ -48,6 +48,8 @@ USER $ARG_USER_NAME
 RUN bash $SETUP/php.sh
 RUN bash $SETUP/composer.sh
 RUN bash $SETUP/nvm.sh
+
+USER root
 
 WORKDIR $ARG_DIR_WEB
 

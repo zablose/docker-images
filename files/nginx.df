@@ -24,7 +24,7 @@ COPY ./images/nginx/setup/* $SETUP/
 COPY ./images/nginx/user-bin/* $HOME/bin/
 COPY ./setup/bin/* $BIN/
 COPY ./setup/common/* $SETUP/
-COPY ./setup/wrapper/* $HOME/wrapper/
+COPY ./setup/wrapper/* /root/wrapper/
 
 RUN chmod -R 777 $SETUP
 RUN bash $SETUP/apt.sh
@@ -38,8 +38,6 @@ RUN chmod 755 $BIN/* && \
     bash $SETUP/root.sh && \
     bash $SETUP/user.sh && \
     bash $SETUP/apt-cleanup.sh
-
-USER $ARG_USER_NAME
 
 WORKDIR $ARG_DIR_WEB
 

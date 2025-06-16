@@ -2,11 +2,10 @@
 
 bin=/usr/local/bin
 
-. "${bin}/exit-if-root"
 . "${bin}/functions.sh"
 
 wrapper=$HOME/wrapper
-log=$HOME/zdi-wrapper.log
+log=/var/log/zdi-wrapper.log
 
 wrapper_start()
 {

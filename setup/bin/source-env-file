@@ -6,7 +6,7 @@ bin=/usr/local/bin
 
 . "${bin}/functions.sh"
 
-file="$HOME/.env"
+file="/home/.env"
 
 if [ ! -e "${file}" ]; then
     show_warning "Environment file '${file}' does not exist.";
