@@ -19,7 +19,7 @@ services:
             - '${ZDI_HOST_IP}:80:80'
             - '${ZDI_HOST_IP}:443:443'
         volumes:
-            - ./.env:/home/${ZDI_USER_NAME}/.env
+            - ./.env:/home/.env
             - ./certs/:/etc/nginx/certs/
             - ./setup/nginx.sh:/home/${ZDI_USER_NAME}/post-setup.sh
         logging:
