@@ -10,6 +10,17 @@ user_id=${ZDI_USER_ID}
 dir_web=${ZDI_DIR_WEB}
 dir_web_app=${ZDI_DIR_WEB_APP}
 
+reas_dir_if() {
+    dir=$1
+    if [[ -d "${dir}" ]]
+    then
+        show_info "Restoring permissions for ${dir} directory."
+        ${cmd} reas "${dir}" 770 660
+    else
+        show_info "Folder ${dir} not found! Skipping..."
+    fi
+}
+
 if command -v sudo >/dev/null 2>&1; then
     cmd=sudo
     if [ $EUID -eq 0 ]; then
@@ -28,11 +39,9 @@ ${cmd} reas "${dir_web}" 750 640
 ${cmd} chmod 750 "${dir_web}"
 ${cmd} chown -R "${user_id}":"${group_id}" "${dir_web}"
 
-if [[ -f "${dir_web_app}/artisan" ]]
-then
-    ${cmd} reas "${dir_web_app}/storage" 770 660
-    ${cmd} reas "${dir_web_app}/bootstrap/cache" 770 660
-fi
+# Slash at the end is important, or symlinks won't work.
+reas_dir_if "${dir_web_app}/storage/"
+reas_dir_if "${dir_web_app}/bootstrap/cache/"
 
 while IFS= read -r -d '' bin_dir
 do
