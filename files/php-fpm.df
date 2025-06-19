@@ -22,7 +22,7 @@ ARG SETUP=/tmp/setup
 
 ENV ZDI_CMD_FULL_PATH=/etc/init.d/php${ARG_VERSION_PHP}-fpm
 
-COPY ./setup/bin/* $BIN/
+COPY ./setup/usr-bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./images/php-fpm/setup/* $SETUP/
 COPY ./images/php-fpm/user-bin/* $HOME/bin/

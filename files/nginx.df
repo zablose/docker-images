@@ -22,7 +22,7 @@ COPY ./images/nginx/conf/snippets/* $SNIPPETS/
 COPY ./images/nginx/post-setup.sh $HOME/
 COPY ./images/nginx/setup/* $SETUP/
 COPY ./images/nginx/user-bin/* $HOME/bin/
-COPY ./setup/bin/* $BIN/
+COPY ./setup/usr-bin/* $BIN/
 COPY ./setup/common/* $SETUP/
 COPY ./setup/wrapper/* /root/wrapper/
 
