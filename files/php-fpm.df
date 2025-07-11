@@ -1,5 +1,6 @@
 FROM debian:12.7
 
+ARG ARG_ADD_CHROMIUM=true
 ARG ARG_ADD_COMPOSER=true
 ARG ARG_ADD_LARAVEL=true
 ARG ARG_ADD_NVM=true
@@ -11,6 +12,7 @@ ARG ARG_USER_GROUP_ID=1000
 ARG ARG_USER_GROUP_NAME=debian
 ARG ARG_USER_ID=1000
 ARG ARG_USER_NAME=debian
+ARG ARG_VERSION_CHROMIUM=1465706
 ARG ARG_VERSION_COMPOSER=2.8.7
 ARG ARG_VERSION_NODEJS=22
 ARG ARG_VERSION_NVM=0.40.2
@@ -34,6 +36,7 @@ RUN bash $SETUP/debian-deps.sh
 RUN bash $SETUP/php-install.sh
 RUN bash $SETUP/php-install-extensions.sh
 RUN bash $SETUP/usr-local-bin.sh
+RUN bash $SETUP/chromium.sh
 
 RUN chmod 755 $BIN/* && \
     bash $SETUP/timezone.sh && \

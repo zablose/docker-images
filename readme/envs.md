@@ -4,31 +4,33 @@
 * Env - Variable is used as `ENV` inside container;
 * Dc - Variable is set in a docker compose file.
 
-| Name                 | Arg,Env,Dc | Default              | Description                                                                                          |
-|----------------------|------------|----------------------|------------------------------------------------------------------------------------------------------|
-| ZDI_ADD_COMPOSER     | arg        | true                 |                                                                                                      |
-| ZDI_ADD_LARAVEL      | arg        | true                 |                                                                                                      |
-| ZDI_ADD_NVM          | arg        | true                 | Install [NVM](https://github.com/nvm-sh/nvm) a version manager for [Node.js](https://nodejs.org).    |
-| ZDI_CONTAINER_NAME   | env,dc     |                      | Container name, used in Bash prompt instead of hostname.                                             |
-| ZDI_DB_HOSTNAME      | env,dc     |                      |                                                                                                      |
-| ZDI_DB_NAME          | env        |                      |                                                                                                      |
-| ZDI_DB_PASSWORD      | env        |                      |                                                                                                      |
-| ZDI_DB_USERNAME      | env        |                      |                                                                                                      |
-| ZDI_DIR_WEB          | env        | /home/web            |                                                                                                      |
-| ZDI_DIR_WEB_APP      | env        | /home/web/app        |                                                                                                      |
-| ZDI_DIR_WEB_APP_ROOT | arg        | /home/web/app/public |                                                                                                      |
-| ZDI_ENV              | arg,env    | production           | If not set to 'production' errors will be displayed in PHP.                                          |
-| ZDI_HOST_IP          | env        | 127.0.0.10           | Can be used to expose different IPs on host, to be able to run multiple services that use same port. |
-| ZDI_PHP_FPM_HOST     | arg,dc     |                      | A php-fpm service name from your 'docker-compose.yml' file.                                          |
-| ZDI_TIMEZONE         | arg,env    | Europe/London        |                                                                                                      |
-| ZDI_USER_GROUP_ID    | arg,env    | 1000                 |                                                                                                      |
-| ZDI_USER_GROUP_NAME  | arg        | debian               |                                                                                                      |
-| ZDI_USER_ID          | arg,env    | 1000                 |                                                                                                      |
-| ZDI_USER_NAME        | arg        | debian               |                                                                                                      |
-| ZDI_VERSION_COMPOSER | arg        | 2.8.7                |                                                                                                      |
-| ZDI_VERSION_NODEJS   | arg        | 22                   | What version of Node.js to install by default.                                                       |
-| ZDI_VERSION_NVM      | arg        | 0.40.2               | What version of NVM to install.                                                                      |
-| ZDI_VERSION_PHP      | arg,env    | 8.4                  |                                                                                                      |
-| ZDI_WEB_DOMAIN       | env        | localhost            |                                                                                                      |
+| Name                 | Arg,Env,Dc | Default              | Description                                                                                                |
+|----------------------|------------|----------------------|------------------------------------------------------------------------------------------------------------|
+| ZDI_ADD_CHROMIUM     | arg        | true                 | Install Chromium and Chrome driver to be able to run Laravel Dusk tests.                                   |
+| ZDI_ADD_COMPOSER     | arg        | true                 |                                                                                                            |
+| ZDI_ADD_LARAVEL      | arg        | true                 |                                                                                                            |
+| ZDI_ADD_NVM          | arg        | true                 | Install [NVM](https://github.com/nvm-sh/nvm) a version manager for [Node.js](https://nodejs.org).          |
+| ZDI_CONTAINER_NAME   | env,dc     |                      | Container name, used in Bash prompt instead of hostname.                                                   |
+| ZDI_DB_HOSTNAME      | env,dc     |                      |                                                                                                            |
+| ZDI_DB_NAME          | env        |                      |                                                                                                            |
+| ZDI_DB_PASSWORD      | env        |                      |                                                                                                            |
+| ZDI_DB_USERNAME      | env        |                      |                                                                                                            |
+| ZDI_DIR_WEB          | env        | /home/web            |                                                                                                            |
+| ZDI_DIR_WEB_APP      | env        | /home/web/app        |                                                                                                            |
+| ZDI_DIR_WEB_APP_ROOT | arg        | /home/web/app/public |                                                                                                            |
+| ZDI_ENV              | arg,env    | production           | If not set to 'production' errors will be displayed in PHP.                                                |
+| ZDI_HOST_IP          | env        | 127.0.0.10           | Can be used to expose different IPs on host, to be able to run multiple services that use same port.       |
+| ZDI_PHP_FPM_HOST     | arg,dc     |                      | A php-fpm service name from your 'docker-compose.yml' file.                                                |
+| ZDI_TIMEZONE         | arg,env    | Europe/London        |                                                                                                            |
+| ZDI_USER_GROUP_ID    | arg,env    | 1000                 |                                                                                                            |
+| ZDI_USER_GROUP_NAME  | arg        | debian               |                                                                                                            |
+| ZDI_USER_ID          | arg,env    | 1000                 |                                                                                                            |
+| ZDI_USER_NAME        | arg        | debian               |                                                                                                            |
+| ZDI_VERSION_CHROMIUM | arg        | 1465706              | Branch base position to download [Chromium](https://www.chromium.org/getting-involved/download-chromium/). |
+| ZDI_VERSION_COMPOSER | arg        | 2.8.7                |                                                                                                            |
+| ZDI_VERSION_NODEJS   | arg        | 22                   | What version of Node.js to install by default.                                                             |
+| ZDI_VERSION_NVM      | arg        | 0.40.2               | What version of NVM to install.                                                                            |
+| ZDI_VERSION_PHP      | arg,env    | 8.4                  |                                                                                                            |
+| ZDI_WEB_DOMAIN       | env        | localhost            |                                                                                                            |
 
 [Back](../readme.md)
