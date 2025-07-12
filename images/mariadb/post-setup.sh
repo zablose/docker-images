@@ -22,8 +22,14 @@ log=/var/log/zdi-post-setup-mariadb.log
     show_info 'Mariadb post setup.'
 
     mariadb_update_server_config "${user}"
-    mariadb_run_default_sql "${db_name}" "${db_user}" "${db_password}" "${user}"
+
+    mariadb_start
+    mariadb_create_db "${db_name}" "${db_user}" "${db_password}"
+    mariadb_create_db "${db_name}_testing" "${db_user}" 'password'
+    mariadb_create_super_user "${user}" "${db_password}"
+    mariadb_remove_empty_users
     mariadb_process_init_files
+    mariadb_stop
 
     show_success "Mariadb post setup complete. Log file '${log}'."
 

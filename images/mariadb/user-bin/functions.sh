@@ -29,14 +29,11 @@ mariadb_update_server_config()
     #sudo sed -i -e "s~^#log_error\s.*$~log_error /proc/self/fd/2~" "${cnf}"
 }
 
-mariadb_run_default_sql()
+mariadb_create_db()
 {
     db_name=${1:-}
     db_user=${2:-}
     db_password=${3:-}
-    user_name=${4:-}
-
-    mariadb_start
 
     sudo -- mariadb <<EOF
 CREATE DATABASE IF NOT EXISTS ${db_name}
@@ -45,22 +42,34 @@ CREATE DATABASE IF NOT EXISTS ${db_name}
 
 GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'%' IDENTIFIED BY '${db_password}';
 
-USE mysql;
-DELETE FROM user WHERE User='';
-
-GRANT ALL PRIVILEGES ON *.* TO '${user_name}'@'%' IDENTIFIED BY '${db_password}' WITH GRANT OPTION;
-
 FLUSH PRIVILEGES;
 EOF
+}
 
-    mariadb_stop
+mariadb_create_super_user()
+{
+    user_name=${1:-}
+    password=${2:-}
+
+    sudo -- mariadb <<EOF
+USE mysql;
+GRANT ALL PRIVILEGES ON *.* TO '${user_name}'@'%' IDENTIFIED BY '${password}' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+}
+
+mariadb_remove_empty_users()
+{
+    sudo -- mariadb <<EOF
+USE mysql;
+DELETE FROM user WHERE User='';
+FLUSH PRIVILEGES;
+EOF
 }
 
 mariadb_process_init_files()
 {
     dir_init=${1:-$HOME/db_init}
-
-    mariadb_start
 
     for file in "${dir_init}"/*; do
         if [[ -f "$file" ]]; then
@@ -87,6 +96,4 @@ mariadb_process_init_files()
             esac
         fi
     done
-
-    mariadb_stop
 }
