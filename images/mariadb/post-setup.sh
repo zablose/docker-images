@@ -25,7 +25,7 @@ log=/var/log/zdi-post-setup-mariadb.log
 
     mariadb_start
     mariadb_create_db "${db_name}" "${db_user}" "${db_password}"
-    mariadb_create_db "${db_name}_testing" "${db_user}" 'password'
+    mariadb_create_db "${db_name}_testing" "${db_user}" "${db_password}"
     mariadb_create_super_user "${user}" "${db_password}"
     mariadb_remove_empty_users
     mariadb_process_init_files
