@@ -4,7 +4,7 @@ bin=/usr/local/bin
 
 . "${bin}/functions.sh"
 
-wrapper=$HOME/wrapper
+wrapper=/root/wrapper
 log=/var/log/zdi-wrapper.log
 
 wrapper_start()
