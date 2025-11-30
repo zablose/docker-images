@@ -35,6 +35,7 @@ wrapper_stop()
     } >> "${log}" 2>&1
 }
 
+if [ ! -e "${log}" ]; then touch "${log}"; fi
 tail -f "${log}" &
 show_info "Tailing log from '${log}'." >> "${log}" 2>&1
 
