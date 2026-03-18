@@ -22,7 +22,7 @@ EOF
     tee "${bin}/phpunit" <<EOF
 ${env_bash}
 
-php ./vendor/bin/phpunit "\$@"
+php ./vendor/bin/phpunit --no-coverage "\$@"
 
 EOF
 
